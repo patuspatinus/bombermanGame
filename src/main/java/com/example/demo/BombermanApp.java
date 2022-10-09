@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.Menu.GameMenu;
+import com.example.demo.Menu.MainMenu;
+import com.example.demo.UI.StageStartScene;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -36,6 +39,20 @@ public class BombermanApp extends GameApplication {
         settings.setHeight(624);
         settings.setWidth(1488);
         settings.setSceneFactory(new SceneFactory());
+
+
+        settings.setIntroEnabled(false);
+        settings.setGameMenuEnabled(true);
+        settings.setMainMenuEnabled(true);
+        settings.setFontUI("assets/fonts/game_font.ttf");
+        settings.setSceneFactory(new SceneFactory() {
+
+            @Override
+            public FXGLMenu newGameMenu() {
+                return new GameMenu();
+            }
+        });
+
     }
 
     protected void initGame() {
