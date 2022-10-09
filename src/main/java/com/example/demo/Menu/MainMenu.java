@@ -3,7 +3,6 @@ package com.example.demo.Menu;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.input.view.KeyView;
-import com.example.demo.UI.StageStartScene;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Shadow;
@@ -29,7 +28,7 @@ public class MainMenu extends FXGLMenu {
         centerTextBind(title, getAppWidth() / 2.0, 300);
 
         var version = getUIFactoryService().newText(getSettings().getVersion(), Color.WHITE, 25);
-        version.setEffect(new DropShadow(3, 3, 3, Color.RED));
+        version.setEffect(new DropShadow(3, 3, 3, Color.WHITE));
         centerTextBind(version, 860, 250);
 
         var menuBox = new VBox(
@@ -44,7 +43,7 @@ public class MainMenu extends FXGLMenu {
         menuBox.setTranslateY(getAppHeight() / 2.0 + 60);
         menuBox.setSpacing(20);
 
-        getContentRoot().getChildren().addAll(background, title, version, menuBox);
+        getContentRoot().getChildren().addAll(background, menuBox);
     }
 
     private void instruct() {
@@ -58,12 +57,13 @@ public class MainMenu extends FXGLMenu {
         getDialogService().showBox("How to Play", pane, getUIFactoryService().newButton("OK"));
     }
 
-
+    private Runnable action;
     public void newGame() {
         fireNewGame();
         getGameTimer().runOnceAfter(() -> {
             //turnOffMusic();
-            getSceneService().pushSubScene(new StageStartScene());
+            action.run();
+
         }, Duration.millis(10));
     }
 }

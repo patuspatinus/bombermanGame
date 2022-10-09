@@ -1,8 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.Menu.GameMenu;
-import com.example.demo.Menu.MainMenu;
-import com.example.demo.UI.StageStartScene;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
