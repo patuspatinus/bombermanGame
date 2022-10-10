@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.Menu.GameMenu;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -12,6 +11,7 @@ import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.physics.PhysicsWorld;
+import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -20,24 +20,30 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import com.example.demo.components.PlayerComponent;
-import com.example.demo.GameType;
+import com.example.demo.BombermanType;
 import com.example.demo.constants.GameConst;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getPhysicsWorld;
 
 public class BombermanApp extends GameApplication {
-
+    private Map temp = new HashMap();
     private boolean isLoading = false;
+
+    public Map getTemp() {
+        return temp;
+    }
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setHeight(624);
         settings.setWidth(1488);
         settings.setSceneFactory(new SceneFactory());
-
 
         settings.setIntroEnabled(false);
         settings.setGameMenuEnabled(true);
@@ -50,7 +56,6 @@ public class BombermanApp extends GameApplication {
                 return new GameMenu();
             }
         });
-
     }
 
     protected void initGame() {
@@ -59,8 +64,14 @@ public class BombermanApp extends GameApplication {
         FXGL.spawn("background");
     }
 
+    @Override
+    protected void initGameVars(Map<String, Object> vars) {
+        vars.put("flame", 1);
+        vars.put("bomb", 1);
+    }
+
     private Entity getPlayer() {
-        return getGameWorld().getSingleton(GameType.PLAYER);
+        return getGameWorld().getSingleton(BombermanType.PLAYER);
     }
 
     private PlayerComponent getPlayerComponent() {
@@ -80,6 +91,7 @@ public class BombermanApp extends GameApplication {
                 getPlayerComponent().stop();
             }
         }, KeyCode.W);
+
 
         getInput().addAction(new UserAction("Move Down") {
             @Override
@@ -117,16 +129,13 @@ public class BombermanApp extends GameApplication {
             }
         }, KeyCode.D);
 
+        getInput().addAction(new UserAction("Place Bomb") {
+            @Override
+            protected void onActionBegin() {
+                getPlayerComponent().placeBomb(geti("flame"));
+            }
+        }, KeyCode.SPACE);
 
-    }
-
-    private void setLevel() {
-        isLoading = false;
-        setLevelFromMap("level" + geti("level") + ".tmx");
-        Viewport viewport = getGameScene().getViewport();
-        viewport.setBounds(0, 0, 1488, 624);
-        viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
-        viewport.setLazy(true);
     }
 
     public static void main(String[] args) {
