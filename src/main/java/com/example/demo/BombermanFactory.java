@@ -67,7 +67,7 @@ public class BombermanFactory implements EntityFactory {
     @Spawns("background")
     public Entity newBackground(SpawnData data) {
         return FXGL.entityBuilder(data)
-                .view(new Rectangle(1488, 624, Color.LIGHTGRAY))
+                .view(new Rectangle(1488, 624, Color.FORESTGREEN))
                 .zIndex(-100)
                 .with(new IrremovableComponent())
                 .build();
@@ -97,6 +97,19 @@ public class BombermanFactory implements EntityFactory {
                 .zIndex(-1)
                 .build();
     }
+
+    /*
+    @Spawns("brick_break")
+    public Entity newBrickBreak(SpawnData data) {
+        return FXGL.entityBuilder(data)
+                .type(BombermanType.BRICK_BREAK)
+                .with(new Bomberman.Components.BrickBreakComponent())
+                .viewWithBBox(new Rectangle(TILED_SIZE, TILED_SIZE, Color.TRANSPARENT))
+                .atAnchored(new Point2D(0, 0), new Point2D(data.getX(), data.getY()))
+                .zIndex(1)
+                .build();
+    }*/
+
 
     @Spawns("central_flame")
     public Entity newCFlame(SpawnData data) {

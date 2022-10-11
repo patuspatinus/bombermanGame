@@ -138,6 +138,19 @@ public class BombermanApp extends GameApplication {
 
     }
 
+    protected void initPhysics() {
+        PhysicsWorld physics = FXGL.getPhysicsWorld();
+        physics.setGravity(0, 0);
+
+        /*onCollision(PLAYER, FLAME, (player, flame) -> {
+            if (flame.getComponent(FlameComponent.class).isActivation()
+                    && getPlayerComponent().getPlayerSkin() == PlayerSkin.NORMAL
+                    && getPlayerComponent().getState() != DIE) {
+                onPlayerDied();
+            }
+        });*/
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

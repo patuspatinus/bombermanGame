@@ -42,8 +42,7 @@ public class PlayerComponent extends Component {
     public PlayerComponent() {
         setSkin(PlayerSkin.NORMAL);
         texture = new AnimatedTexture(animIdleDown);
-        PhysicsWorld physics = getPhysicsWorld();
-        physics.setGravity(0, 0);
+
     }
 
     private void setSkin(PlayerSkin skin) {
