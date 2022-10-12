@@ -26,6 +26,20 @@ public class FlameComponent extends Component {
             flame.removeFromWorld();
         });
 
+        onCollisionBegin(BombermanType.FLAME, BombermanType.BRICK, (flame, brick) -> {
+            Entity brickBreak = spawn("brick_break", new SpawnData(brick.getX(), brick.getY()));
+            flame.removeFromWorld();
+
+            getGameTimer().runOnceAfter(() -> {
+                brick.removeFromWorld();
+            }, Duration.millis(10));
+
+            getGameTimer().runOnceAfter(() -> {
+                brickBreak.removeFromWorld();
+            }, Duration.seconds(0.4));
+            //inc("score", 10);
+        });
+
         animationFlame = new AnimationChannel(image(assetName), 3, TILED_SIZE, TILED_SIZE, Duration.seconds(0.4), 0, 2);
 
         texture = new AnimatedTexture(animationFlame);

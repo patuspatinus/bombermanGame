@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.almasb.fxgl.core.util.LazyValue;
+import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
@@ -8,8 +8,6 @@ import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.components.IrremovableComponent;
-import com.almasb.fxgl.pathfinding.CellMoveComponent;
-import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
@@ -19,14 +17,12 @@ import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.example.demo.components.BombComponent;
 import com.example.demo.components.PlayerComponent;
 import com.example.demo.components.FlameComponent;
-import com.example.demo.constants.GameConst;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
-import static com.almasb.fxgl.dsl.FXGL.geto;
 import static com.example.demo.BombermanConstant.TILED_SIZE;
 import static com.example.demo.constants.GameConst.*;
 
@@ -98,17 +94,17 @@ public class BombermanFactory implements EntityFactory {
                 .build();
     }
 
-    /*
+
     @Spawns("brick_break")
     public Entity newBrickBreak(SpawnData data) {
         return FXGL.entityBuilder(data)
                 .type(BombermanType.BRICK_BREAK)
-                .with(new Bomberman.Components.BrickBreakComponent())
+                .with(new com.example.demo.components.BrickBreakComponent())
                 .viewWithBBox(new Rectangle(TILED_SIZE, TILED_SIZE, Color.TRANSPARENT))
                 .atAnchored(new Point2D(0, 0), new Point2D(data.getX(), data.getY()))
                 .zIndex(1)
                 .build();
-    }*/
+    }
 
 
     @Spawns("central_flame")

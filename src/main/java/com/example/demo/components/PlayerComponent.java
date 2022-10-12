@@ -34,6 +34,7 @@ public class PlayerComponent extends Component {
     private PlayerSkin playerSkin;
 
     private State state = State.STOP;
+
     private PhysicsComponent physics;
     private AnimatedTexture texture;
     private AnimationChannel animIdleDown, animIdleRight, animIdleUp, animIdleLeft;
