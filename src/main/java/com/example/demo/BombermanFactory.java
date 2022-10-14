@@ -75,6 +75,7 @@ public class BombermanFactory implements EntityFactory {
         var height = (int) data.get("height");
 
         return FXGL.entityBuilder(data)
+                .view("brick.png")
                 .type(BombermanType.BRICK)
                 .bbox(new HitBox(BoundingShape.box(width, height)))
                 .with(new PhysicsComponent())
