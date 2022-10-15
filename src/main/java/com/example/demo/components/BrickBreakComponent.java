@@ -23,8 +23,4 @@ public class BrickBreakComponent extends Component {
     public void onAdded() {
         entity.getViewComponent().addChild(texture);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8

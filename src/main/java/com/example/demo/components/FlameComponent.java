@@ -54,8 +54,4 @@ public class FlameComponent extends Component {
     public boolean isActivation() {
         return activation;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8

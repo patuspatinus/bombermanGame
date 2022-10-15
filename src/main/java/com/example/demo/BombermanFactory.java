@@ -1,9 +1,6 @@
 package com.example.demo;
 
-<<<<<<< HEAD
 import com.example.demo.components.Enemy.*;
-=======
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -87,7 +84,6 @@ public class BombermanFactory implements EntityFactory {
                 .build();
     }
 
-<<<<<<< HEAD
     @Spawns("enemy1")
     public Entity newEnemy1(SpawnData data) {
         return entityBuilder(data)
@@ -110,20 +106,6 @@ public class BombermanFactory implements EntityFactory {
                 .build();
     }
 
-=======
-    @Spawns("bomb")
-    public Entity newBomb(SpawnData data) {
-        return entityBuilder(data)
-                .type(BombermanType.BOMB)
-                .atAnchored(new Point2D(0, 0), new Point2D(data.getX(), data.getY()))
-                .bbox(new HitBox(new Point2D(2, 2), BoundingShape.circle(22)))
-                .with(new BombComponent())
-                .with(new CollidableComponent(true))
-                .zIndex(-1)
-                .build();
-    }
-
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 
     @Spawns("brick_break")
     public Entity newBrickBreak(SpawnData data) {
@@ -244,8 +226,4 @@ public class BombermanFactory implements EntityFactory {
                 .zIndex(-1)
                 .build();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8

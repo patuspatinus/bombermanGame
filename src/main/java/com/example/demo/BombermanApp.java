@@ -1,10 +1,7 @@
 package com.example.demo;
 
-<<<<<<< HEAD
 import com.example.demo.Menu.MainMenu;
 import com.example.demo.components.Enemy.*;
-=======
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -16,10 +13,7 @@ import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.physics.PhysicsWorld;
-<<<<<<< HEAD
 import com.example.demo.constants.GameConst.*;
-=======
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCode;
@@ -56,7 +50,6 @@ public class BombermanApp extends GameApplication {
         gameSettings.setTitle(GameConst.GAME_TITLE);
         gameSettings.setVersion(GameConst.GAME_VERSION);
 
-<<<<<<< HEAD
         //gameSettings.setFullScreenAllowed(true);
         //gameSettings.setFullScreenFromStart(true);
 
@@ -65,22 +58,12 @@ public class BombermanApp extends GameApplication {
         gameSettings.setMainMenuEnabled(true);
         gameSettings.setFontUI("game_font.ttf");
         gameSettings.setSceneFactory(new SceneFactory() {
-=======
-        settings.setIntroEnabled(false);
-        settings.setGameMenuEnabled(true);
-        settings.setMainMenuEnabled(true);
-        settings.setFontUI("assets/fonts/game_font.ttf");
-        settings.setSceneFactory(new SceneFactory() {
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 
             @Override
             public FXGLMenu newGameMenu() {
                 return new GameMenu();
             }
-<<<<<<< HEAD
 
-=======
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
         });
     }
 
@@ -164,7 +147,6 @@ public class BombermanApp extends GameApplication {
 
     }
 
-<<<<<<< HEAD
 //    private void setLevel() {
 //        isLoading = false;
 //        setLevelFromMap("level" + geti("level") + ".tmx");
@@ -175,20 +157,6 @@ public class BombermanApp extends GameApplication {
 //
 //        set("enemies", getGameWorld().getGroup(ENEMY1.Cla);
 //    }
-=======
-    protected void initPhysics() {
-        PhysicsWorld physics = FXGL.getPhysicsWorld();
-        physics.setGravity(0, 0);
-
-        /*onCollision(PLAYER, FLAME, (player, flame) -> {
-            if (flame.getComponent(FlameComponent.class).isActivation()
-                    && getPlayerComponent().getPlayerSkin() == PlayerSkin.NORMAL
-                    && getPlayerComponent().getState() != DIE) {
-                onPlayerDied();
-            }
-        });*/
-    }
->>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 
     public static void main(String[] args) {
         launch(args);
