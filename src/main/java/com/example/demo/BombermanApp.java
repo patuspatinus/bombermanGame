@@ -1,6 +1,10 @@
 package com.example.demo;
 
-import com.example.demo.Menu.GameMenu;
+<<<<<<< HEAD
+import com.example.demo.Menu.MainMenu;
+import com.example.demo.components.Enemy.*;
+=======
+>>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -12,6 +16,11 @@ import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.physics.PhysicsWorld;
+<<<<<<< HEAD
+import com.example.demo.constants.GameConst.*;
+=======
+>>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
+import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -20,37 +29,59 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import com.example.demo.components.PlayerComponent;
-import com.example.demo.GameType;
+import com.example.demo.BombermanType;
 import com.example.demo.constants.GameConst;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getPhysicsWorld;
+import static com.example.demo.BombermanType.ENEMY1;
 
 public class BombermanApp extends GameApplication {
-
+    private Map temp = new HashMap();
     private boolean isLoading = false;
+
+    public Map getTemp() {
+        return temp;
+    }
+
     @Override
-    protected void initSettings(GameSettings settings) {
-        settings.setHeight(624);
-        settings.setWidth(1488);
-        settings.setSceneFactory(new SceneFactory());
+    protected void initSettings(GameSettings gameSettings) {
+        gameSettings.setWidth(GameConst.SCREEN_WIDTH);
+        gameSettings.setHeight(GameConst.SCREEN_HEIGHT);
+        gameSettings.setTitle(GameConst.GAME_TITLE);
+        gameSettings.setVersion(GameConst.GAME_VERSION);
 
+<<<<<<< HEAD
+        //gameSettings.setFullScreenAllowed(true);
+        //gameSettings.setFullScreenFromStart(true);
 
+        gameSettings.setIntroEnabled(false);
+        gameSettings.setGameMenuEnabled(true);
+        gameSettings.setMainMenuEnabled(true);
+        gameSettings.setFontUI("game_font.ttf");
+        gameSettings.setSceneFactory(new SceneFactory() {
+=======
         settings.setIntroEnabled(false);
         settings.setGameMenuEnabled(true);
         settings.setMainMenuEnabled(true);
         settings.setFontUI("assets/fonts/game_font.ttf");
         settings.setSceneFactory(new SceneFactory() {
+>>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 
             @Override
             public FXGLMenu newGameMenu() {
                 return new GameMenu();
             }
-        });
+<<<<<<< HEAD
 
+=======
+>>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
+        });
     }
 
     protected void initGame() {
@@ -59,8 +90,14 @@ public class BombermanApp extends GameApplication {
         FXGL.spawn("background");
     }
 
+    @Override
+    protected void initGameVars(Map<String, Object> vars) {
+        vars.put("flame", 1);
+        vars.put("bomb", 1);
+    }
+
     private Entity getPlayer() {
-        return getGameWorld().getSingleton(GameType.PLAYER);
+        return getGameWorld().getSingleton(BombermanType.PLAYER);
     }
 
     private PlayerComponent getPlayerComponent() {
@@ -80,6 +117,7 @@ public class BombermanApp extends GameApplication {
                 getPlayerComponent().stop();
             }
         }, KeyCode.W);
+
 
         getInput().addAction(new UserAction("Move Down") {
             @Override
@@ -117,17 +155,40 @@ public class BombermanApp extends GameApplication {
             }
         }, KeyCode.D);
 
+        getInput().addAction(new UserAction("Place Bomb") {
+            @Override
+            protected void onActionBegin() {
+                getPlayerComponent().placeBomb(geti("flame"));
+            }
+        }, KeyCode.SPACE);
 
     }
 
-    private void setLevel() {
-        isLoading = false;
-        setLevelFromMap("level" + geti("level") + ".tmx");
-        Viewport viewport = getGameScene().getViewport();
-        viewport.setBounds(0, 0, 1488, 624);
-        viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
-        viewport.setLazy(true);
+<<<<<<< HEAD
+//    private void setLevel() {
+//        isLoading = false;
+//        setLevelFromMap("level" + geti("level") + ".tmx");
+//        Viewport viewport = getGameScene().getViewport();
+//        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+//        viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
+//        viewport.setLazy(true);
+//
+//        set("enemies", getGameWorld().getGroup(ENEMY1.Cla);
+//    }
+=======
+    protected void initPhysics() {
+        PhysicsWorld physics = FXGL.getPhysicsWorld();
+        physics.setGravity(0, 0);
+
+        /*onCollision(PLAYER, FLAME, (player, flame) -> {
+            if (flame.getComponent(FlameComponent.class).isActivation()
+                    && getPlayerComponent().getPlayerSkin() == PlayerSkin.NORMAL
+                    && getPlayerComponent().getState() != DIE) {
+                onPlayerDied();
+            }
+        });*/
     }
+>>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
 
     public static void main(String[] args) {
         launch(args);

@@ -2,10 +2,16 @@ package com.example.demo.components;
 
 import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.almasb.fxgl.physics.PhysicsWorld;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
+
+import static com.example.demo.BombermanConstant.TILED_SIZE;
+
 
 import javafx.util.Duration;
 
@@ -14,8 +20,11 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 public class PlayerComponent extends Component {
     private final int FRAME_SIZE = 45;
 
+    private boolean bombInvalidation;
+    private int bombCounter;
+
     public enum State {
-        UP, RIGHT, DOWN, LEFT, STOP
+        UP, RIGHT, DOWN, LEFT, STOP, DIE
     }
 
     public enum PlayerSkin {
@@ -24,16 +33,25 @@ public class PlayerComponent extends Component {
 
     private PlayerSkin playerSkin;
 
-    private State state;
+    private State state = State.STOP;
+<<<<<<< HEAD
+=======
+
+>>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
     private PhysicsComponent physics;
     private AnimatedTexture texture;
     private AnimationChannel animIdleDown, animIdleRight, animIdleUp, animIdleLeft;
     private AnimationChannel animWalkDown, animWalkRight, animWalkUp, animWalkLeft;
 
     public PlayerComponent() {
-        state = State.STOP;
         setSkin(PlayerSkin.NORMAL);
         texture = new AnimatedTexture(animIdleDown);
+<<<<<<< HEAD
+        PhysicsWorld physics = getPhysicsWorld();
+        physics.setGravity(0, 0);
+=======
+
+>>>>>>> c699cc65e7b01a7297aa633af06d9cef3d0d3eb8
     }
 
     private void setSkin(PlayerSkin skin) {
@@ -59,6 +77,7 @@ public class PlayerComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
+
         if (physics.getVelocityX() != 0) {
 
             physics.setVelocityX((int) physics.getVelocityX() * 0.9);
@@ -106,28 +125,28 @@ public class PlayerComponent extends Component {
 
     public void up() {
         state = State.UP;
-        physics.setVelocityY(-70);
-
+        physics.setVelocityY(-120);
     }
 
     public void down() {
         state = State.DOWN;
-        physics.setVelocityY(70);
+        physics.setVelocityY(120);
     }
 
     public void left() {
         state = State.LEFT;
-        physics.setVelocityX(-70);
+        physics.setVelocityX(-120);
     }
 
     public void right() {
         state = State.RIGHT;
-        physics.setVelocityX(70);
+        physics.setVelocityX(120);
     }
 
     public void stop() {
         state = State.STOP;
         physics.setVelocityY(0);
+        physics.setVelocityX(0);
     }
 
     public State getState() {
@@ -138,4 +157,34 @@ public class PlayerComponent extends Component {
         this.state = state;
     }
 
+    public void placeBomb(int flames) {
+        if (state != State.DIE) {
+            if (bombCounter == geti("bomb")) {
+                return;
+            }
+            bombCounter++;
+
+            int bombLocationX = (int) (entity.getX() % TILED_SIZE > TILED_SIZE / 2
+                    ? entity.getX() + TILED_SIZE - entity.getX() % TILED_SIZE + 1
+                    : entity.getX() - entity.getX() % TILED_SIZE + 1);
+            int bombLocationY = (int) (entity.getY() % TILED_SIZE > TILED_SIZE / 2
+                    ? entity.getY() + TILED_SIZE - entity.getY() % TILED_SIZE + 1
+                    : entity.getY() - entity.getY() % TILED_SIZE + 1);
+
+            Entity bomb = spawn("bomb", new SpawnData(bombLocationX, bombLocationY));
+            getGameTimer().runOnceAfter(() -> {
+                if (!bombInvalidation) {
+                    bomb.getComponent(BombComponent.class).explode(flames);
+                } else {
+                    bomb.removeFromWorld();
+                }
+                bombCounter--;
+            }, Duration.seconds(2.1));
+        }
+    }
+
+
+    public void setBombInvalidation(boolean bombInvalidation) {
+        this.bombInvalidation = bombInvalidation;
+    }
 }
