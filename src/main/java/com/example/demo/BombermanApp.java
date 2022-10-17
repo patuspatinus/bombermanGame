@@ -34,6 +34,8 @@ import java.util.Set;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getPhysicsWorld;
 import static com.example.demo.BombermanType.ENEMY1;
+import static com.example.demo.constants.GameConst.GAME_WORLD_HEIGHT;
+import static com.example.demo.constants.GameConst.GAME_WORLD_WIDTH;
 
 public class BombermanApp extends GameApplication {
     private Map temp = new HashMap();
@@ -147,16 +149,16 @@ public class BombermanApp extends GameApplication {
 
     }
 
-//    private void setLevel() {
-//        isLoading = false;
-//        setLevelFromMap("level" + geti("level") + ".tmx");
-//        Viewport viewport = getGameScene().getViewport();
-//        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
-//        viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
-//        viewport.setLazy(true);
-//
-//        set("enemies", getGameWorld().getGroup(ENEMY1.Cla);
-//    }
+    private void setLevel() {
+        isLoading = false;
+        setLevelFromMap("level" + geti("level") + ".tmx");
+        Viewport viewport = getGameScene().getViewport();
+        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+        viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
+        viewport.setLazy(true);
+
+        set("enemies", getGameWorld().getGroup(ENEMY1).getSize());
+    }
 
     public static void main(String[] args) {
         launch(args);

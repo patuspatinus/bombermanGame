@@ -14,16 +14,15 @@
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.34.26.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.47.56.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.48.33.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.48.41.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.49.01.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.50.53.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.51.07.log" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.57.56.log" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.58.11.log" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-22.59.14.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-23.04.25.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-23.06.13.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/FXGL-15-Oct-2022-23.30.00.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/FXGL-16-Oct-2022-08.07.51.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/FXGL-16-Oct-2022-22.32.16.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/FXGL-17-Oct-2022-09.30.42.log" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
@@ -49,6 +48,7 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/assets/levels/map1.tmx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/assets/textures/bomb.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/assets/textures/brick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/textures/brick_break.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/assets/textures/central_flame.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/assets/textures/enemy1.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/assets/textures/esc_background.png" afterDir="false" />

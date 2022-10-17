@@ -31,24 +31,24 @@ public class PlayerComponent extends Component {
         NORMAL, GOLD;
     }
 
-    private com.example.demo.components.PlayerComponent.PlayerSkin playerSkin;
+    private PlayerSkin playerSkin;
 
-    private com.example.demo.components.PlayerComponent.State state = com.example.demo.components.PlayerComponent.State.STOP;
+    private State state = State.STOP;
     private PhysicsComponent physics;
     private AnimatedTexture texture;
     private AnimationChannel animIdleDown, animIdleRight, animIdleUp, animIdleLeft;
     private AnimationChannel animWalkDown, animWalkRight, animWalkUp, animWalkLeft;
 
     public PlayerComponent() {
-        setSkin(com.example.demo.components.PlayerComponent.PlayerSkin.NORMAL);
+        setSkin(PlayerSkin.NORMAL);
         texture = new AnimatedTexture(animIdleDown);
         PhysicsWorld physics = getPhysicsWorld();
         physics.setGravity(0, 0);
     }
 
-    private void setSkin(com.example.demo.components.PlayerComponent.PlayerSkin skin) {
+    private void setSkin(PlayerSkin skin) {
         playerSkin = skin;
-        if (playerSkin == com.example.demo.components.PlayerComponent.PlayerSkin.NORMAL) {
+        if (playerSkin == PlayerSkin.NORMAL) {
             animIdleDown = new AnimationChannel(image("player_down.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
             animIdleRight = new AnimationChannel(image("player_right.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
             animIdleUp = new AnimationChannel(image("player_up.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
@@ -116,41 +116,41 @@ public class PlayerComponent extends Component {
     }
 
     public void up() {
-        state = com.example.demo.components.PlayerComponent.State.UP;
+        state = State.UP;
         physics.setVelocityY(-120);
     }
 
     public void down() {
-        state = com.example.demo.components.PlayerComponent.State.DOWN;
+        state = State.DOWN;
         physics.setVelocityY(120);
     }
 
     public void left() {
-        state = com.example.demo.components.PlayerComponent.State.LEFT;
+        state = State.LEFT;
         physics.setVelocityX(-120);
     }
 
     public void right() {
-        state = com.example.demo.components.PlayerComponent.State.RIGHT;
+        state = State.RIGHT;
         physics.setVelocityX(120);
     }
 
     public void stop() {
-        state = com.example.demo.components.PlayerComponent.State.STOP;
+        state = State.STOP;
         physics.setVelocityY(0);
         physics.setVelocityX(0);
     }
 
-    public com.example.demo.components.PlayerComponent.State getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(com.example.demo.components.PlayerComponent.State state) {
+    public void setState(State state) {
         this.state = state;
     }
 
     public void placeBomb(int flames) {
-        if (state != com.example.demo.components.PlayerComponent.State.DIE) {
+        if (state != State.DIE) {
             if (bombCounter == geti("bomb")) {
                 return;
             }
