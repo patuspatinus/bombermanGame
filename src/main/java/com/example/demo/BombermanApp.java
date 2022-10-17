@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.Menu.MainMenu;
+import com.example.demo.components.Enemy.*;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -11,6 +13,7 @@ import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.physics.PhysicsWorld;
+import com.example.demo.constants.GameConst.*;
 import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCode;
@@ -30,6 +33,9 @@ import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getPhysicsWorld;
+import static com.example.demo.BombermanType.ENEMY1;
+import static com.example.demo.constants.GameConst.GAME_WORLD_HEIGHT;
+import static com.example.demo.constants.GameConst.GAME_WORLD_WIDTH;
 
 public class BombermanApp extends GameApplication {
     private Map temp = new HashMap();
@@ -40,21 +46,26 @@ public class BombermanApp extends GameApplication {
     }
 
     @Override
-    protected void initSettings(GameSettings settings) {
-        settings.setHeight(624);
-        settings.setWidth(1488);
-        settings.setSceneFactory(new SceneFactory());
+    protected void initSettings(GameSettings gameSettings) {
+        gameSettings.setWidth(GameConst.SCREEN_WIDTH);
+        gameSettings.setHeight(GameConst.SCREEN_HEIGHT);
+        gameSettings.setTitle(GameConst.GAME_TITLE);
+        gameSettings.setVersion(GameConst.GAME_VERSION);
 
-        settings.setIntroEnabled(false);
-        settings.setGameMenuEnabled(true);
-        settings.setMainMenuEnabled(true);
-        settings.setFontUI("assets/fonts/game_font.ttf");
-        settings.setSceneFactory(new SceneFactory() {
+        //gameSettings.setFullScreenAllowed(true);
+        //gameSettings.setFullScreenFromStart(true);
+
+        gameSettings.setIntroEnabled(false);
+        gameSettings.setGameMenuEnabled(true);
+        gameSettings.setMainMenuEnabled(true);
+        gameSettings.setFontUI("game_font.ttf");
+        gameSettings.setSceneFactory(new SceneFactory() {
 
             @Override
             public FXGLMenu newGameMenu() {
                 return new GameMenu();
             }
+
         });
     }
 
@@ -138,17 +149,15 @@ public class BombermanApp extends GameApplication {
 
     }
 
-    protected void initPhysics() {
-        PhysicsWorld physics = FXGL.getPhysicsWorld();
-        physics.setGravity(0, 0);
+    private void setLevel() {
+        isLoading = false;
+        setLevelFromMap("level" + geti("level") + ".tmx");
+        Viewport viewport = getGameScene().getViewport();
+        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+        viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
+        viewport.setLazy(true);
 
-        /*onCollision(PLAYER, FLAME, (player, flame) -> {
-            if (flame.getComponent(FlameComponent.class).isActivation()
-                    && getPlayerComponent().getPlayerSkin() == PlayerSkin.NORMAL
-                    && getPlayerComponent().getState() != DIE) {
-                onPlayerDied();
-            }
-        });*/
+        set("enemies", getGameWorld().getGroup(ENEMY1).getSize());
     }
 
     public static void main(String[] args) {

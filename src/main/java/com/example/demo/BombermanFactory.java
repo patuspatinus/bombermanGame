@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.components.Enemy.*;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -79,6 +80,16 @@ public class BombermanFactory implements EntityFactory {
                 .type(BombermanType.BRICK)
                 .bbox(new HitBox(BoundingShape.box(width, height)))
                 .with(new PhysicsComponent())
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
+    @Spawns("enemy1")
+    public Entity newEnemy1(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.ENEMY1)
+                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.box(38, 38)))
+                .with(new Enemy1())
                 .with(new CollidableComponent(true))
                 .build();
     }

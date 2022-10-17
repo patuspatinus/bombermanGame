@@ -1,10 +1,8 @@
 package com.example.demo.components;
 
-
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
-import com.example.demo.BombermanType;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 import javafx.util.Duration;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import static com.example.demo.BombermanConstant.TILED_SIZE;
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-public class BombComponent extends Component {
+public class BombComponent extends Component{
     private AnimatedTexture texture;
     private AnimationChannel animation;
     private ArrayList<Entity> listFlame = new ArrayList<>();
@@ -58,5 +56,4 @@ public class BombComponent extends Component {
             virtualBomb.removeFromWorld();
         }
     }
-
 }
