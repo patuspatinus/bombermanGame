@@ -94,6 +94,16 @@ public class BombermanFactory implements EntityFactory {
                 .build();
     }
 
+    @Spawns("enemy2")
+    public Entity newEnemy2(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.ENEMY2)
+                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.box(38, 38)))
+                .with(new Enemy2())
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
     @Spawns("bomb")
     public Entity newBomb(SpawnData data) {
         return entityBuilder(data)
