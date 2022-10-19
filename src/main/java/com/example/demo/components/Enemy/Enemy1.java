@@ -17,9 +17,6 @@ public class Enemy1 extends Enemy {
         onCollisionBegin(ENEMY1, WALL, (enemy1, wall) -> {
             enemy1.getComponent(Enemy1.class).turn();
         });
-        onCollisionBegin(ENEMY1, DOOR, (enemy1, door) -> {
-            enemy1.getComponent(Enemy1.class).turn();
-        });
         onCollisionBegin(ENEMY1, BOMB, (enemy1, bomb) -> {
             enemy1.getComponent(Enemy1.class).turn();
         });
@@ -28,7 +25,8 @@ public class Enemy1 extends Enemy {
                 enemy1.getComponent(Enemy1.class).setStateDie();
                 getGameTimer().runOnceAfter(() -> {
                     enemy1.removeFromWorld();
-                    set("enemies", getGameWorld().getGroup(ENEMY1).getSize());
+                    set("enemies", getGameWorld().getGroup(ENEMY1,
+                            ENEMY2).getSize());
                 }, Duration.seconds(2.4));
             }
         });
