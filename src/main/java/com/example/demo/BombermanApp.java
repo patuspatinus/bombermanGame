@@ -13,6 +13,7 @@ import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.physics.PhysicsWorld;
+import com.example.demo.components.FlameComponent;
 import com.example.demo.constants.GameConst.*;
 import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
@@ -25,6 +26,7 @@ import javafx.util.Duration;
 import com.example.demo.components.PlayerComponent;
 import com.example.demo.BombermanType;
 import com.example.demo.constants.GameConst;
+import com.example.demo.DynamicEntityState.State;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -33,7 +35,6 @@ import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getPhysicsWorld;
-import static com.example.demo.BombermanType.ENEMY1;
 import static com.example.demo.constants.GameConst.GAME_WORLD_HEIGHT;
 import static com.example.demo.constants.GameConst.GAME_WORLD_WIDTH;
 
@@ -52,8 +53,8 @@ public class BombermanApp extends GameApplication {
         gameSettings.setTitle(GameConst.GAME_TITLE);
         gameSettings.setVersion(GameConst.GAME_VERSION);
 
-        gameSettings.setFullScreenAllowed(true);
-        gameSettings.setFullScreenFromStart(true);
+        //gameSettings.setFullScreenAllowed(true);
+        //gameSettings.setFullScreenFromStart(true);
 
         gameSettings.setIntroEnabled(false);
         gameSettings.setGameMenuEnabled(true);
@@ -157,7 +158,69 @@ public class BombermanApp extends GameApplication {
         viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
         viewport.setLazy(true);
 
-        set("enemies", getGameWorld().getGroup(ENEMY1).getSize());
+        set("enemies", getGameWorld().getGroup(BombermanType.ENEMY1).getSize());
+    }
+
+    @Override
+    protected void initPhysics() {
+
+        /**
+        onCollisionBegin(PLAYER, DOOR, (player, door) -> {
+            if (isLoading == false
+                    && getGameWorld().getGroup(ENEMY1, ENEMY2,
+                    ENEMY3, ENEMY4, ENEMY5).getSize() == 0) {
+                isLoading = true;
+                getPlayerComponent().setBombInvalidation(true);
+                turnOffMusic();
+                play("next_level.wav");
+                getGameTimer().runOnceAfter(() -> {
+                    turnOnMusic();
+                    nextLevel();
+                }, Duration.seconds(4));
+            }
+        });
+         */
+        onCollisionBegin(BombermanType.PLAYER, BombermanType.ENEMY1, (player, enemy) -> {
+            if (enemy.getComponent(Enemy1.class).getState() != State.DIE
+                    && getPlayerComponent().getState() != State.DIE) {
+                //onPlayerDied();
+                getPlayerComponent().setState(State.DIE);
+            }
+        });
+        onCollisionBegin(BombermanType.PLAYER, BombermanType.ENEMY2, (player, enemy) -> {
+            if (enemy.getComponent(Enemy2.class).getState() != State.DIE
+                    && getPlayerComponent().getState() != State.DIE) {
+                //onPlayerDied();
+                getPlayerComponent().setState(State.DIE);
+            }
+        });
+        /**
+        onCollisionBegin(PLAYER, ENEMY3, (player, enemy) -> {
+            if (enemy.getComponent(Enemy3.class).getState() != DIE
+                    && getPlayerComponent().getState() != DIE) {
+                onPlayerDied();
+            }
+        });
+        onCollisionBegin(PLAYER, ENEMY4, (player, enemy) -> {
+            if (enemy.getComponent(Enemy4.class).getState() != DIE
+                    && getPlayerComponent().getState() != DIE) {
+                onPlayerDied();
+            }
+        });
+        onCollisionBegin(PLAYER, ENEMY5, (player, enemy) -> {
+            if (enemy.getComponent(Enemy5.class).getState() != DIE
+                    && getPlayerComponent().getState() != DIE) {
+                onPlayerDied();
+            }
+        });
+         */
+        onCollisionBegin(BombermanType.PLAYER, BombermanType.FLAME, (player, flame) -> {
+            if (flame.getComponent(FlameComponent.class).isActivation()
+                    && getPlayerComponent().getState() != State.DIE) {
+                //onPlayerDied();
+                getPlayerComponent().setState(State.DIE);
+            }
+        });
     }
 
     public static void main(String[] args) {

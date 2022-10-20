@@ -16,7 +16,7 @@ public class BombComponent extends Component{
     private AnimatedTexture texture;
     private AnimationChannel animation;
     private ArrayList<Entity> listFlame = new ArrayList<>();
-    private Entity virtualBomb;
+    //private Entity virtualBomb;
 
     public BombComponent() {
         animation = new AnimationChannel(image("bomb.png"), 3, TILED_SIZE, TILED_SIZE, Duration.seconds(0.4), 0, 2);
@@ -52,8 +52,8 @@ public class BombComponent extends Component{
         }, Duration.seconds(0.4));
 
         entity.removeFromWorld();
-        if (virtualBomb != null) {
-            virtualBomb.removeFromWorld();
-        }
+        //if (virtualBomb != null) {
+            //virtualBomb.removeFromWorld();
+        //}
     }
 }

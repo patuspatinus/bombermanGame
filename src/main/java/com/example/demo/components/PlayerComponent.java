@@ -9,6 +9,7 @@ import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.PhysicsWorld;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
+import com.example.demo.DynamicEntityState.State;
 
 import static com.example.demo.BombermanConstant.TILED_SIZE;
 
@@ -17,15 +18,12 @@ import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
+
 public class PlayerComponent extends Component {
     private final int FRAME_SIZE = 45;
 
     private boolean bombInvalidation;
     private int bombCounter;
-
-    public enum State {
-        UP, RIGHT, DOWN, LEFT, STOP, DIE
-    }
 
     public enum PlayerSkin {
         NORMAL, GOLD;
@@ -36,6 +34,7 @@ public class PlayerComponent extends Component {
     private State state = State.STOP;
     private PhysicsComponent physics;
     private AnimatedTexture texture;
+    private AnimationChannel animDie;
     private AnimationChannel animIdleDown, animIdleRight, animIdleUp, animIdleLeft;
     private AnimationChannel animWalkDown, animWalkRight, animWalkUp, animWalkLeft;
 
@@ -49,6 +48,8 @@ public class PlayerComponent extends Component {
     private void setSkin(PlayerSkin skin) {
         playerSkin = skin;
         if (playerSkin == PlayerSkin.NORMAL) {
+            animDie = new AnimationChannel(image("player_die.png"), 5, FRAME_SIZE, FRAME_SIZE, Duration.seconds(3.5), 0, 4);
+
             animIdleDown = new AnimationChannel(image("player_down.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
             animIdleRight = new AnimationChannel(image("player_right.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
             animIdleUp = new AnimationChannel(image("player_up.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
@@ -112,6 +113,9 @@ public class PlayerComponent extends Component {
                     texture.loopNoOverride(animIdleRight);
                 }
                 break;
+            case DIE:
+                texture.loopNoOverride(animDie);
+                break;
         }
     }
 
@@ -174,7 +178,6 @@ public class PlayerComponent extends Component {
             }, Duration.seconds(2.1));
         }
     }
-
 
     public void setBombInvalidation(boolean bombInvalidation) {
         this.bombInvalidation = bombInvalidation;
