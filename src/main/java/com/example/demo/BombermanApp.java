@@ -70,6 +70,11 @@ public class BombermanApp extends GameApplication {
         FXGL.getGameWorld().addEntityFactory(new BombermanFactory());
         FXGL.setLevelFromMap("map1.tmx");
         FXGL.spawn("background");
+
+        Viewport viewport = getGameScene().getViewport();
+        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+        viewport.bindToEntity(getPlayer(), getAppWidth()/ 2, getAppHeight());
+        viewport.setLazy(true);
     }
 
     @Override
@@ -151,10 +156,7 @@ public class BombermanApp extends GameApplication {
     private void setLevel() {
         isLoading = false;
         setLevelFromMap("level" + geti("level") + ".tmx");
-        Viewport viewport = getGameScene().getViewport();
-        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
-        viewport.bindToEntity(getPlayer(), getAppWidth() / 2, getAppHeight() / 2);
-        viewport.setLazy(true);
+
 
         set("enemies", getGameWorld().getGroup(BombermanType.ENEMY1).getSize());
     }*/
