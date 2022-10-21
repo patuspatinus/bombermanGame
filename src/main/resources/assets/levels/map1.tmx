@@ -165,13 +165,22 @@
   <object id="179" name="Brick" type="brick" x="720" y="96" width="48" height="48"/>
   <object id="180" name="Brick" type="brick" x="720" y="144" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="6" name="Enemy2" visible="0" locked="1">
-  <object id="185" name="Enemy2" type="enemy2" x="816" y="48" width="48" height="48"/>
-  <object id="186" name="Enemy2" type="enemy2" x="1152" y="144" width="48" height="48"/>
+ <objectgroup id="6" name="Water" visible="0" locked="1">
+  <object id="185" name="Water" type="water" x="816" y="48" width="48" height="48"/>
+  <object id="186" name="Water" type="water" x="1152" y="144" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="5" name="Enemy1" visible="0" locked="1">
-  <object id="181" name="Enemy1" type="enemy1" x="624" y="48" width="48" height="48"/>
-  <object id="183" name="Enemy1" type="enemy1" x="864" y="144" width="48" height="48"/>
-  <object id="184" name="Enemy1" type="enemy1" x="1152" y="240" width="48" height="48"/>
+ <objectgroup id="5" name="Balloon" visible="0" locked="1">
+  <object id="181" name="Balloon" type="balloon" x="624" y="48" width="48" height="48"/>
+  <object id="183" name="Balloon" type="balloon" x="864" y="144" width="48" height="48"/>
+  <object id="184" name="Balloon" type="balloon" x="1152" y="240" width="48" height="48"/>
  </objectgroup>
+ <objectgroup id="7" name="Tiger" visible="0" locked="1">
+   <object id="187" name="Tiger" type="tiger" x="624" y="336" width="48" height="48"/>
+  </objectgroup>
+  <objectgroup id="8" name="Lantern" visible="0" locked="1">
+     <object id="188" name="Lantern" type="lantern" x="1104" y="336" width="48" height="48"/>
+  </objectgroup>
+  <objectgroup id="9" name="Cloud" visible="0" locked="1">
+       <object id="188" name="Cloud" type="cloud" x="336" y="480" width="48" height="48"/>
+    </objectgroup>
 </map>

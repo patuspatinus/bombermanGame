@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.components.Enemy.*;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
@@ -84,22 +83,52 @@ public class BombermanFactory implements EntityFactory {
                 .build();
     }
 
-    @Spawns("enemy1")
-    public Entity newEnemy1(SpawnData data) {
+    @Spawns("balloon")
+    public Entity newBalloon(SpawnData data) {
         return entityBuilder(data)
-                .type(BombermanType.ENEMY1)
+                .type(BombermanType.BALLOOM_E)
                 .bbox(new HitBox(new Point2D(5, 5), BoundingShape.box(38, 38)))
-                .with(new Enemy1())
+                .with(new Balloon())
                 .with(new CollidableComponent(true))
                 .build();
     }
 
-    @Spawns("enemy2")
-    public Entity newEnemy2(SpawnData data) {
+    @Spawns("water")
+    public Entity newWater(SpawnData data) {
         return entityBuilder(data)
-                .type(BombermanType.ENEMY2)
+                .type(BombermanType.WATER_E)
                 .bbox(new HitBox(new Point2D(5, 5), BoundingShape.box(38, 38)))
-                .with(new Enemy2())
+                .with(new Water())
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
+    @Spawns("tiger")
+    public Entity newTiger(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.TIGER_E)
+                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.box(38, 38)))
+                .with(new Tiger())
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
+    @Spawns("lantern")
+    public Entity newLantern(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.LANTERN_E)
+                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.box(38, 38)))
+                .with(new Lantern())
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
+    @Spawns("cloud")
+    public Entity newCloud(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.CLOUD_E)
+                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.box(38, 38)))
+                .with(new Cloud())
                 .with(new CollidableComponent(true))
                 .build();
     }

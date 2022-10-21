@@ -53,7 +53,7 @@ public class BombComponent extends Component{
 
         entity.removeFromWorld();
         //if (virtualBomb != null) {
-            //virtualBomb.removeFromWorld();
+        //virtualBomb.removeFromWorld();
         //}
     }
 }
