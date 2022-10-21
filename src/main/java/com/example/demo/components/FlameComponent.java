@@ -20,7 +20,7 @@ public class FlameComponent extends Component {
         activation = false;
         getGameTimer().runOnceAfter(() -> {
             activation = true;
-        }, Duration.millis(15));
+        }, Duration.millis(50));
 
         onCollisionBegin(BombermanType.FLAME, BombermanType.WALL, (flame, wall) -> {
             flame.removeFromWorld();

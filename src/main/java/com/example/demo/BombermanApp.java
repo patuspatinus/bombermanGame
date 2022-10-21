@@ -215,8 +215,7 @@ public class BombermanApp extends GameApplication {
         });
          */
         onCollisionBegin(BombermanType.PLAYER, BombermanType.FLAME, (player, flame) -> {
-            if (flame.getComponent(FlameComponent.class).isActivation()
-                    && getPlayerComponent().getState() != State.DIE) {
+            if (getPlayerComponent().getState() != State.DIE) {
                 //onPlayerDied();
                 getPlayerComponent().setState(State.DIE);
             }

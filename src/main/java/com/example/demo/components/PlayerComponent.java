@@ -122,21 +122,25 @@ public class PlayerComponent extends Component {
     public void up() {
         state = State.UP;
         physics.setVelocityY(-120);
+        //play("updown_walk.wav");
     }
 
     public void down() {
         state = State.DOWN;
         physics.setVelocityY(120);
+        //play("updown_walk.wav");
     }
 
     public void left() {
         state = State.LEFT;
         physics.setVelocityX(-120);
+        //play("leftright_walk.wav");
     }
 
     public void right() {
         state = State.RIGHT;
         physics.setVelocityX(120);
+        //play("leftright_walk.wav");
     }
 
     public void stop() {
@@ -155,6 +159,7 @@ public class PlayerComponent extends Component {
 
     public void placeBomb(int flames) {
         if (state != State.DIE) {
+            play("bomb_placed.wav");
             if (bombCounter == geti("bomb")) {
                 return;
             }
@@ -171,6 +176,8 @@ public class PlayerComponent extends Component {
             getGameTimer().runOnceAfter(() -> {
                 if (!bombInvalidation) {
                     bomb.getComponent(BombComponent.class).explode(flames);
+                    play("bomb_explode.wav");
+
                 } else {
                     bomb.removeFromWorld();
                 }
