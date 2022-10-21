@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="31" height="13" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="187">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="31" height="13" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="192">
  <tileset firstgid="1" name="classic" tilewidth="48" tileheight="48" tilecount="256" columns="16">
   <image source="../../../../../../demo1/src/BombermanOOP/src/main/resources/assets/levels/classic.png" width="768" height="768"/>
  </tileset>
- <objectgroup id="4" name="Character" visible="0" locked="1">
+ <layer id="1" name="Tile Layer 1" width="31" height="13">
+  <data encoding="csv">
+6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
+6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
+6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
+6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
+6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
+6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6
+</data>
+ </layer>
+ <objectgroup id="7" name="Items" locked="1">
+  <object id="188" name="Items" type="powerup_bombs" x="336" y="96" width="48" height="48">
+   <ellipse/>
+  </object>
+  <object id="189" name="Items" type="powerup_bombs" x="48" y="336" width="48" height="48">
+   <ellipse/>
+  </object>
+  <object id="190" name="Items" type="powerup_flames" x="48" y="288" width="48" height="48">
+   <ellipse/>
+  </object>
+  <object id="191" name="Items" type="powerup_speed" x="288" y="432" width="48" height="48">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="Character" locked="1">
   <object id="168" name="Character" type="player" x="48" y="48" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="2" name="Wall" visible="0" locked="1">
+ <objectgroup id="2" name="Wall" locked="1">
   <object id="1" name="Wall" type="wall" x="0" y="0" width="1488" height="48"/>
   <object id="5" name="Wall" type="wall" x="0" y="48" width="48" height="528"/>
   <object id="9" name="Wall" type="wall" x="1440" y="48" width="48" height="528"/>
@@ -82,7 +113,7 @@
   <object id="108" name="Wall" type="wall" x="1248" y="480" width="48" height="48"/>
   <object id="109" name="Wall" type="wall" x="1344" y="480" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="3" name="Brick">
+ <objectgroup id="3" name="Brick" locked="1">
   <object id="111" name="Brick" type="brick" x="336" y="48" width="48" height="48"/>
   <object id="112" name="Brick" type="brick" x="336" y="96" width="48" height="48"/>
   <object id="117" name="Brick" type="brick" x="384" y="48" width="48" height="48"/>
@@ -134,28 +165,11 @@
   <object id="179" name="Brick" type="brick" x="720" y="96" width="48" height="48"/>
   <object id="180" name="Brick" type="brick" x="720" y="144" width="48" height="48"/>
  </objectgroup>
- <layer id="1" name="Tile Layer 1" width="31" height="13">
-  <data encoding="csv">
-6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
-6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
-6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
-6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
-6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
-6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,0,6,
-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
-6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6
-</data>
- </layer>
- <objectgroup id="6" name="Enemy2">
+ <objectgroup id="6" name="Enemy2" visible="0" locked="1">
   <object id="185" name="Enemy2" type="enemy2" x="816" y="48" width="48" height="48"/>
   <object id="186" name="Enemy2" type="enemy2" x="1152" y="144" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="5" name="Enemy1">
+ <objectgroup id="5" name="Enemy1" visible="0" locked="1">
   <object id="181" name="Enemy1" type="enemy1" x="624" y="48" width="48" height="48"/>
   <object id="183" name="Enemy1" type="enemy1" x="864" y="144" width="48" height="48"/>
   <object id="184" name="Enemy1" type="enemy1" x="1152" y="240" width="48" height="48"/>

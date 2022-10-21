@@ -236,4 +236,41 @@ public class BombermanFactory implements EntityFactory {
                 .zIndex(-1)
                 .build();
     }
+
+
+    @Spawns("powerup_flames")
+    public Entity newItem(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.FLAME_ITEM)
+                .view("powerup_flames.png")
+                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
+                .with(new PhysicsComponent())
+                .with(new CollidableComponent(true))
+                .zIndex(-1)
+                .build();
+    }
+
+    @Spawns("powerup_bombs")
+    public Entity newItem2(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.BOMB_ITEM)
+                .view("powerup_bombs.png")
+                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
+                .with(new PhysicsComponent())
+                .with(new CollidableComponent(true))
+                .zIndex(-1)
+                .build();
+    }
+
+    @Spawns("powerup_speed")
+    public Entity newItem3(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.SPEED_ITEM)
+                .view("powerup_speed.png")
+                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
+                .with(new PhysicsComponent())
+                .with(new CollidableComponent(true))
+                .zIndex(-1)
+                .build();
+    }
 }

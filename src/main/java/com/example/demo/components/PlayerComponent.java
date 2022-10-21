@@ -12,6 +12,7 @@ import com.almasb.fxgl.texture.AnimationChannel;
 import com.example.demo.DynamicEntityState.State;
 
 import static com.example.demo.BombermanConstant.TILED_SIZE;
+import static com.example.demo.BombermanType.*;
 
 
 import javafx.util.Duration;
@@ -43,6 +44,24 @@ public class PlayerComponent extends Component {
         texture = new AnimatedTexture(animIdleDown);
         PhysicsWorld physics = getPhysicsWorld();
         physics.setGravity(0, 0);
+
+        bombCounter = 0;
+
+
+        onCollisionBegin(PLAYER, FLAME_ITEM, (player, powerup) -> {
+            powerup.removeFromWorld();
+            //play("powerup.wav");
+            inc("flame", 1);
+        });
+        onCollisionBegin(PLAYER, BOMB_ITEM, (player, powerup) -> {
+            powerup.removeFromWorld();
+            //play("powerup.wav");
+            inc("bomb", 1);
+        });
+        onCollisionBegin(PLAYER, SPEED_ITEM, (player, powerup) -> {
+            powerup.removeFromWorld();
+            handlePowerUpSpeed();
+        });
     }
 
     private void setSkin(PlayerSkin skin) {
@@ -121,25 +140,25 @@ public class PlayerComponent extends Component {
 
     public void up() {
         state = State.UP;
-        physics.setVelocityY(-120);
+        physics.setVelocityY(-geti("speed"));
         //play("updown_walk.wav");
     }
 
     public void down() {
         state = State.DOWN;
-        physics.setVelocityY(120);
+        physics.setVelocityY(geti("speed"));
         //play("updown_walk.wav");
     }
 
     public void left() {
         state = State.LEFT;
-        physics.setVelocityX(-120);
+        physics.setVelocityX(-geti("speed"));
         //play("leftright_walk.wav");
     }
 
     public void right() {
         state = State.RIGHT;
-        physics.setVelocityX(120);
+        physics.setVelocityX(geti("speed"));
         //play("leftright_walk.wav");
     }
 
@@ -155,6 +174,14 @@ public class PlayerComponent extends Component {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public void handlePowerUpSpeed() {
+        //play("powerup.wav");
+        inc("speed", 50);
+        getGameTimer().runOnceAfter(() -> {
+            inc("speed", -50);
+        }, Duration.seconds(6));
     }
 
     public void placeBomb(int flames) {

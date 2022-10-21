@@ -13,8 +13,6 @@ import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.physics.PhysicsWorld;
-import com.example.demo.components.FlameComponent;
-import com.example.demo.constants.GameConst.*;
 import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCode;
@@ -31,12 +29,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getPhysicsWorld;
-import static com.example.demo.constants.GameConst.GAME_WORLD_HEIGHT;
-import static com.example.demo.constants.GameConst.GAME_WORLD_WIDTH;
+import static com.example.demo.constants.GameConst.*;
 
 public class BombermanApp extends GameApplication {
     private Map temp = new HashMap();
@@ -59,7 +55,7 @@ public class BombermanApp extends GameApplication {
         gameSettings.setIntroEnabled(false);
         gameSettings.setGameMenuEnabled(true);
         gameSettings.setMainMenuEnabled(true);
-        gameSettings.setFontUI("game_font.ttf");
+        //gameSettings.setFontUI("game_font.ttf");
         gameSettings.setSceneFactory(new SceneFactory() {
 
             @Override
@@ -80,6 +76,7 @@ public class BombermanApp extends GameApplication {
     protected void initGameVars(Map<String, Object> vars) {
         vars.put("flame", 1);
         vars.put("bomb", 1);
+        vars.put("speed", SPEED);
     }
 
     private Entity getPlayer() {
@@ -150,6 +147,7 @@ public class BombermanApp extends GameApplication {
 
     }
 
+    /*
     private void setLevel() {
         isLoading = false;
         setLevelFromMap("level" + geti("level") + ".tmx");
@@ -159,7 +157,7 @@ public class BombermanApp extends GameApplication {
         viewport.setLazy(true);
 
         set("enemies", getGameWorld().getGroup(BombermanType.ENEMY1).getSize());
-    }
+    }*/
 
     @Override
     protected void initPhysics() {
@@ -220,6 +218,11 @@ public class BombermanApp extends GameApplication {
                 getPlayerComponent().setState(State.DIE);
             }
         });
+    }
+
+    @Override
+    protected void onPreInit() {
+        loopBGM("theme.mp3");
     }
 
     public static void main(String[] args) {
