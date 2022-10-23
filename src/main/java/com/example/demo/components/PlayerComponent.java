@@ -50,16 +50,17 @@ public class PlayerComponent extends Component {
 
         onCollisionBegin(PLAYER, FLAME_ITEM, (player, powerup) -> {
             powerup.removeFromWorld();
-            //play("powerup.wav");
+            play("powerup.wav");
             inc("flame", 1);
         });
         onCollisionBegin(PLAYER, BOMB_ITEM, (player, powerup) -> {
             powerup.removeFromWorld();
-            //play("powerup.wav");
+            play("powerup.wav");
             inc("bomb", 1);
         });
         onCollisionBegin(PLAYER, SPEED_ITEM, (player, powerup) -> {
             powerup.removeFromWorld();
+            play("powerup.wav");
             handlePowerUpSpeed();
         });
     }
@@ -139,33 +140,43 @@ public class PlayerComponent extends Component {
     }
 
     public void up() {
-        state = State.UP;
-        physics.setVelocityY(-geti("speed"));
-        //play("updown_walk.wav");
+        if (state != State.DIE) {
+            state = State.UP;
+            physics.setVelocityY(-geti("speed"));
+            //play("updown_walk.wav");
+        }
     }
 
     public void down() {
-        state = State.DOWN;
-        physics.setVelocityY(geti("speed"));
-        //play("updown_walk.wav");
+        if (state != State.DIE) {
+            state = State.DOWN;
+            physics.setVelocityY(geti("speed"));
+            //play("updown_walk.wav");
+        }
     }
 
     public void left() {
-        state = State.LEFT;
-        physics.setVelocityX(-geti("speed"));
-        //play("leftright_walk.wav");
+        if (state != State.DIE) {
+            state = State.LEFT;
+            physics.setVelocityX(-geti("speed"));
+            //play("leftright_walk.wav");
+        }
     }
 
     public void right() {
-        state = State.RIGHT;
-        physics.setVelocityX(geti("speed"));
-        //play("leftright_walk.wav");
+        if (state != State.DIE) {
+            state = State.RIGHT;
+            physics.setVelocityX(geti("speed"));
+            //play("leftright_walk.wav");
+        }
     }
 
     public void stop() {
-        state = State.STOP;
-        physics.setVelocityY(0);
-        physics.setVelocityX(0);
+        if (state != State.DIE) {
+            state = State.STOP;
+            physics.setVelocityY(0);
+            physics.setVelocityX(0);
+        }
     }
 
     public State getState() {

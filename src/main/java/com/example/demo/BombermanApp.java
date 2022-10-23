@@ -14,12 +14,14 @@ import javafx.scene.input.KeyCode;
 import com.example.demo.components.PlayerComponent;
 import com.example.demo.constants.GameConst;
 import com.example.demo.DynamicEntityState.State;
+import javafx.util.Duration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.example.demo.constants.GameConst.*;
+import static com.example.demo.Sounds.SoundEffect.*;
 
 public class BombermanApp extends GameApplication {
     private Map temp = new HashMap();
@@ -36,13 +38,12 @@ public class BombermanApp extends GameApplication {
         gameSettings.setTitle(GameConst.GAME_TITLE);
         gameSettings.setVersion(GameConst.GAME_VERSION);
 
-        gameSettings.setFullScreenAllowed(true);
-        gameSettings.setFullScreenFromStart(true);
+        //gameSettings.setFullScreenAllowed(true);
+        //gameSettings.setFullScreenFromStart(true);
 
         gameSettings.setIntroEnabled(false);
         gameSettings.setGameMenuEnabled(true);
         gameSettings.setMainMenuEnabled(true);
-        //gameSettings.setFontUI("game_font.ttf");
         gameSettings.setSceneFactory(new SceneFactory() {
 
             @Override
@@ -139,13 +140,6 @@ public class BombermanApp extends GameApplication {
 
     }
 
-    /*
-    private void setLevel() {
-        isLoading = false;
-        setLevelFromMap("level" + geti("level") + ".tmx");
-        set("enemies", getGameWorld().getGroup(BombermanType.ENEMY1).getSize());
-    }*/
-
     @Override
     protected void initPhysics() {
 
@@ -165,44 +159,41 @@ public class BombermanApp extends GameApplication {
          }
          });
          */
-        onCollisionBegin(BombermanType.PLAYER, BombermanType.ENEMY1, (player, enemy) -> {
+        onCollisionBegin(BombermanType.PLAYER, BombermanType.BALLOOM_E, (player, enemy) -> {
             if (enemy.getComponent(Balloon.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
-                //onPlayerDied();
-                getPlayerComponent().setState(State.DIE);
+                onPlayerDied();
             }
         });
-        onCollisionBegin(BombermanType.PLAYER, BombermanType.ENEMY2, (player, enemy) -> {
+        onCollisionBegin(BombermanType.PLAYER, BombermanType.WATER_E, (player, enemy) -> {
             if (enemy.getComponent(Water.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
-                //onPlayerDied();
-                getPlayerComponent().setState(State.DIE);
+                onPlayerDied();
             }
         });
-        /**
-         onCollisionBegin(PLAYER, ENEMY3, (player, enemy) -> {
-         if (enemy.getComponent(Enemy3.class).getState() != DIE
-         && getPlayerComponent().getState() != DIE) {
-         onPlayerDied();
+
+         onCollisionBegin(BombermanType.PLAYER, BombermanType.CLOUD_E, (player, enemy) -> {
+            if (enemy.getComponent(Cloud.class).getState() != State.DIE
+                    && getPlayerComponent().getState() != State.DIE) {
+                onPlayerDied();
+            }
+         });
+         onCollisionBegin(BombermanType.PLAYER, BombermanType.LANTERN_E, (player, enemy) -> {
+             if (enemy.getComponent(Lantern.class).getState() != State.DIE
+                    && getPlayerComponent().getState() != State.DIE) {
+                onPlayerDied();
          }
          });
-         onCollisionBegin(PLAYER, ENEMY4, (player, enemy) -> {
-         if (enemy.getComponent(Enemy4.class).getState() != DIE
-         && getPlayerComponent().getState() != DIE) {
-         onPlayerDied();
+         onCollisionBegin(BombermanType.PLAYER, BombermanType.TIGER_E, (player, enemy) -> {
+            if (enemy.getComponent(Tiger.class).getState() != State.DIE
+                    && getPlayerComponent().getState() != State.DIE) {
+                onPlayerDied();
          }
          });
-         onCollisionBegin(PLAYER, ENEMY5, (player, enemy) -> {
-         if (enemy.getComponent(Enemy5.class).getState() != DIE
-         && getPlayerComponent().getState() != DIE) {
-         onPlayerDied();
-         }
-         });
-         */
+
         onCollisionBegin(BombermanType.PLAYER, BombermanType.FLAME, (player, flame) -> {
             if (getPlayerComponent().getState() != State.DIE) {
-                //onPlayerDied();
-                getPlayerComponent().setState(State.DIE);
+                onPlayerDied();
             }
         });
     }
@@ -212,10 +203,22 @@ public class BombermanApp extends GameApplication {
         loopBGM("theme.mp3");
     }
 
+    public void onPlayerDied() {
+        turnOffMusic();
+        play("player_die.wav");
+        isLoading = true;
+        getPlayerComponent().setState(State.DIE);
+        getPlayerComponent().setBombInvalidation(true);
+        getGameTimer().runOnceAfter(() -> {
+            getGameScene().getViewport().fade(() -> {
+                    turnOffMusic();
+                    showMessage("Game Over !!!", () -> getGameController().gotoMainMenu());
+                    //getSceneService().pushSubScene(new EndingScene("   GAME OVER !!!\n\n\n\n   DO YOUR BEST"));
+            });
+        }, Duration.seconds(2.2));
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
 }
-
-//Baloon enemy1
-//Water enemy2
