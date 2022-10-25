@@ -302,4 +302,18 @@ public class BombermanFactory implements EntityFactory {
                 .zIndex(-1)
                 .build();
     }
+
+    @Spawns("door")
+    public Entity newDoor(SpawnData data) {
+        return entityBuilder(data)
+                .type(BombermanType.DOOR)
+                .view("portal.png")
+                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
+                //.with(new PhysicsComponent())
+                .with(new CollidableComponent(true))
+                .zIndex(-1)
+                .build();
+    }
+
+
 }

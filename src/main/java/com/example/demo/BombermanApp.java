@@ -23,6 +23,13 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.example.demo.constants.GameConst.*;
 import static com.example.demo.Sounds.SoundEffect.*;
 
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
+import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.almasb.fxgl.dsl.FXGL.addUINode;
+
 public class BombermanApp extends GameApplication {
     private Map temp = new HashMap();
     private boolean isLoading = false;
@@ -69,6 +76,7 @@ public class BombermanApp extends GameApplication {
     protected void initGameVars(Map<String, Object> vars) {
         vars.put("flame", 1);
         vars.put("bomb", 1);
+        vars.put("life", 3);
         vars.put("speed", SPEED);
     }
 
@@ -143,22 +151,21 @@ public class BombermanApp extends GameApplication {
     @Override
     protected void initPhysics() {
 
-        /**
-         onCollisionBegin(PLAYER, DOOR, (player, door) -> {
-         if (isLoading == false
-         && getGameWorld().getGroup(ENEMY1, ENEMY2,
-         ENEMY3, ENEMY4, ENEMY5).getSize() == 0) {
-         isLoading = true;
-         getPlayerComponent().setBombInvalidation(true);
-         turnOffMusic();
-         play("next_level.wav");
-         getGameTimer().runOnceAfter(() -> {
-         turnOnMusic();
-         nextLevel();
-         }, Duration.seconds(4));
-         }
+
+         onCollisionBegin(BombermanType.PLAYER, BombermanType.DOOR, (player, door) -> {
+            if (isLoading == false && getGameWorld().getGroup(BombermanType.BALLOOM_E, BombermanType.WATER_E,
+                    BombermanType.CLOUD_E, BombermanType.LANTERN_E, BombermanType.TIGER_E).getSize() == 0) {
+                isLoading = true;
+            getPlayerComponent().setBombInvalidation(true);
+            turnOffMusic();
+            play("next_level.wav");
+            getGameTimer().runOnceAfter(() -> {
+                turnOnMusic();
+                showMessage("You win !!!", () -> getGameController().gotoMainMenu());
+            }, Duration.seconds(4));
+            }
          });
-         */
+
         onCollisionBegin(BombermanType.PLAYER, BombermanType.BALLOOM_E, (player, enemy) -> {
             if (enemy.getComponent(Balloon.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
@@ -213,11 +220,10 @@ public class BombermanApp extends GameApplication {
             getGameScene().getViewport().fade(() -> {
                     turnOffMusic();
                     showMessage("Game Over !!!", () -> getGameController().gotoMainMenu());
-                    //getSceneService().pushSubScene(new EndingScene("   GAME OVER !!!\n\n\n\n   DO YOUR BEST"));
             });
         }, Duration.seconds(2.2));
     }
-
+    
     public static void main(String[] args) {
         launch(args);
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="31" height="13" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="192">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="31" height="13" tilewidth="48" tileheight="48" infinite="0" nextlayerid="9" nextobjectid="194">
  <tileset firstgid="1" name="classic" tilewidth="48" tileheight="48" tilecount="256" columns="16">
   <image source="../../../../../../demo1/src/BombermanOOP/src/main/resources/assets/levels/classic.png" width="768" height="768"/>
  </tileset>
@@ -34,10 +34,10 @@
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Character" locked="1">
+ <objectgroup id="4" name="Character" visible="0" locked="1">
   <object id="168" name="Character" type="player" x="48" y="48" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="2" name="Wall" locked="1">
+ <objectgroup id="2" name="Wall" visible="0" locked="1">
   <object id="1" name="Wall" type="wall" x="0" y="0" width="1488" height="48"/>
   <object id="5" name="Wall" type="wall" x="0" y="48" width="48" height="528"/>
   <object id="9" name="Wall" type="wall" x="1440" y="48" width="48" height="528"/>
@@ -165,6 +165,11 @@
   <object id="179" name="Brick" type="brick" x="720" y="96" width="48" height="48"/>
   <object id="180" name="Brick" type="brick" x="720" y="144" width="48" height="48"/>
  </objectgroup>
+ <objectgroup id="8" name="Door" locked="1">
+  <object id="193" name="Door" type="door" x="480" y="144" width="48" height="48">
+   <ellipse/>
+  </object>
+ </objectgroup>
  <objectgroup id="6" name="Water" visible="0" locked="1">
   <object id="185" name="Water" type="water" x="816" y="48" width="48" height="48"/>
   <object id="186" name="Water" type="water" x="1152" y="144" width="48" height="48"/>
@@ -175,12 +180,12 @@
   <object id="184" name="Balloon" type="balloon" x="1152" y="240" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="7" name="Tiger" visible="0" locked="1">
-   <object id="187" name="Tiger" type="tiger" x="624" y="336" width="48" height="48"/>
-  </objectgroup>
-  <objectgroup id="8" name="Lantern" visible="0" locked="1">
-     <object id="188" name="Lantern" type="lantern" x="1104" y="336" width="48" height="48"/>
-  </objectgroup>
-  <objectgroup id="9" name="Cloud" visible="0" locked="1">
-       <object id="188" name="Cloud" type="cloud" x="336" y="480" width="48" height="48"/>
-    </objectgroup>
+  <object id="187" name="Tiger" type="tiger" x="624" y="336" width="48" height="48"/>
+ </objectgroup>
+ <objectgroup id="8" name="Lantern" visible="0" locked="1">
+  <object id="188" name="Lantern" type="lantern" x="1104" y="336" width="48" height="48"/>
+ </objectgroup>
+ <objectgroup id="9" name="Cloud" visible="0" locked="1">
+  <object id="188" name="Cloud" type="cloud" x="336" y="480" width="48" height="48"/>
+ </objectgroup>
 </map>
