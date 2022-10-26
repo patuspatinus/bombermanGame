@@ -9,6 +9,8 @@ import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.pathfinding.CellState;
+import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.input.UserAction;
 import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
@@ -33,11 +35,17 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGL.addUINode;
 
 public class BombermanApp extends GameApplication {
+
+    private AStarGrid grid;
     private Map temp = new HashMap();
     private boolean isLoading = false;
 
     public Map getTemp() {
         return temp;
+    }
+
+    public AStarGrid getGrid() {
+        return grid;
     }
 
     @Override
@@ -65,6 +73,11 @@ public class BombermanApp extends GameApplication {
 
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new BombermanFactory());
+        setLevel();
+    }
+
+    protected void setLevel() {
+        isLoading = false;
         FXGL.setLevelFromMap("map1.tmx");
         FXGL.spawn("background");
 
@@ -72,23 +85,9 @@ public class BombermanApp extends GameApplication {
         viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
         viewport.bindToEntity(getPlayer(), getAppWidth()/ 2, getAppHeight());
         viewport.setLazy(true);
-        //setLevel();
 
+        setGridForAi();
     }
-
-//    protected void setLevel() {
-//        Viewport viewport = getGameScene().getViewport();
-//        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
-//        viewport.bindToEntity(getPlayer(), getAppWidth()/ 2, getAppHeight());
-//        viewport.setLazy(true);
-//
-//        set("score", temp.get("score"));
-//        set("flame", temp.get("flame"));
-//        set("bomb", temp.get("bomb"));
-//        //set("levelTime", TIME_LEVEL);
-//        //set("enemies", getGameWorld().getGroup(BALLOOM_E,
-//        //WATER_E,TIGER_E, LANTERN_E, CLOUD_E).getSize());
-//    }
 
 
 
@@ -170,11 +169,9 @@ public class BombermanApp extends GameApplication {
                 isLoading = true;
             getPlayerComponent().setBombInvalidation(true);
             turnOffMusic();
-            play("next_level.wav");
             getGameTimer().runOnceAfter(() -> {
-                turnOnMusic();
                 showMessage("You win !!!", () -> getGameController().gotoMainMenu());
-            }, Duration.seconds(4));
+            }, Duration.seconds(0.1));
             }
          });
 
@@ -237,19 +234,19 @@ public class BombermanApp extends GameApplication {
         isLoading = true;
         getPlayerComponent().setState(State.DIE);
         getPlayerComponent().setBombInvalidation(true);
-        //inc("life", -1);
-        if (geti("life") > 0) {
-            getPlayerComponent().setState(State.STOP);
-            getPlayerComponent().setBombInvalidation(false);
-        } else {
-            getGameTimer().runOnceAfter(() -> {
+        inc("life", -1);
+        getGameTimer().runOnceAfter(() -> {
                 getGameScene().getViewport().fade(() -> {
-                    turnOffMusic();
-                    showMessage("Game Over !!!", () -> getGameController().gotoMainMenu());
+                    if (geti("life") > 0) {
+                        getPlayerComponent().setBombInvalidation(false);
+                        setLevel();
+                    } else {
+                        turnOffMusic();
+                        showMessage("Game Over !!!", () -> getGameController().gotoMainMenu());
+                    }
                 });
             }, Duration.seconds(2.2));
         }
-    }
 
     @Override
     protected void initUI() {
@@ -260,6 +257,32 @@ public class BombermanApp extends GameApplication {
         UIComponents.addILabelUI("enemies", "👻 %d", 200, 18);
     }
 
+    private void setGridForAi() {
+                grid = AStarGrid.fromWorld(getGameWorld(), 31, 15,
+                SIZE_BLOCK, SIZE_BLOCK, (type) -> {
+                    if (type == BombermanType.BRICK
+                            || type == BombermanType.WALL
+                            || type == BombermanType.GRASS
+                            || type == BombermanType.CORAL
+                            || type == BombermanType.AROUND_WALL) {
+                        return CellState.NOT_WALKABLE;
+                    } else {
+                        return CellState.WALKABLE;
+                    }
+                });
+
+        AStarGrid _grid = AStarGrid.fromWorld(getGameWorld(), 31, 15,
+                SIZE_BLOCK, SIZE_BLOCK, (type) -> {
+                    if (type == BombermanType.AROUND_WALL || type == BombermanType.WALL) {
+                        return CellState.NOT_WALKABLE;
+                    } else {
+                        return CellState.WALKABLE;
+                    }
+                });
+
+        set("grid", grid);
+        set("_grid", _grid);
+    }
     public static void main(String[] args) {
         launch(args);
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="31" height="13" tilewidth="48" tileheight="48" infinite="0" nextlayerid="9" nextobjectid="194">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="31" height="13" tilewidth="48" tileheight="48" infinite="0" nextlayerid="9" nextobjectid="195">
  <tileset firstgid="1" name="classic" tilewidth="48" tileheight="48" tilecount="256" columns="16">
   <image source="../../../../../../demo1/src/BombermanOOP/src/main/resources/assets/levels/classic.png" width="768" height="768"/>
  </tileset>
@@ -34,8 +34,8 @@
    <ellipse/>
   </object>
   <object id="192" name="Items" type="powerup_life" x="720" y="48" width="48" height="48">
-     <ellipse/>
-   </object>
+   <ellipse/>
+  </object>
  </objectgroup>
  <objectgroup id="4" name="Character" visible="0" locked="1">
   <object id="168" name="Character" type="player" x="48" y="48" width="48" height="48"/>
@@ -116,7 +116,7 @@
   <object id="108" name="Wall" type="wall" x="1248" y="480" width="48" height="48"/>
   <object id="109" name="Wall" type="wall" x="1344" y="480" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="3" name="Brick" locked="1">
+ <objectgroup id="3" name="Brick">
   <object id="111" name="Brick" type="brick" x="336" y="48" width="48" height="48"/>
   <object id="112" name="Brick" type="brick" x="336" y="96" width="48" height="48"/>
   <object id="117" name="Brick" type="brick" x="384" y="48" width="48" height="48"/>
@@ -167,27 +167,28 @@
   <object id="178" name="Brick" type="brick" x="720" y="48" width="48" height="48"/>
   <object id="179" name="Brick" type="brick" x="720" y="96" width="48" height="48"/>
   <object id="180" name="Brick" type="brick" x="720" y="144" width="48" height="48"/>
+  <object id="194" name="Brick" type="brick" x="528" y="240" width="48" height="48"/>
  </objectgroup>
- <objectgroup id="8" name="Door" locked="1">
-  <object id="193" name="Door" type="door" x="480" y="144" width="48" height="48">
+ <objectgroup id="8" name="Door">
+  <object id="193" name="Door" type="door" x="528" y="240" width="48" height="48">
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Water" visible="0" locked="1">
-  <object id="185" name="Water" type="water" x="816" y="48" width="48" height="48"/>
-  <object id="186" name="Water" type="water" x="1152" y="144" width="48" height="48"/>
- </objectgroup>
- <objectgroup id="5" name="Balloon" visible="0" locked="1">
-  <object id="181" name="Balloon" type="balloon" x="624" y="48" width="48" height="48"/>
-  <object id="183" name="Balloon" type="balloon" x="864" y="144" width="48" height="48"/>
-  <object id="184" name="Balloon" type="balloon" x="1152" y="240" width="48" height="48"/>
- </objectgroup>
- <objectgroup id="7" name="Tiger" visible="0" locked="1">
-  <object id="187" name="Tiger" type="tiger" x="624" y="336" width="48" height="48"/>
- </objectgroup>
- <objectgroup id="8" name="Lantern" visible="0" locked="1">
-  <object id="188" name="Lantern" type="lantern" x="1104" y="336" width="48" height="48"/>
- </objectgroup>
+  <objectgroup id="6" name="Water" visible="0" locked="1">
+   <object id="185" name="Water" type="water" x="816" y="48" width="48" height="48"/>
+   <object id="186" name="Water" type="water" x="1152" y="144" width="48" height="48"/>
+  </objectgroup>
+  <objectgroup id="5" name="Balloon" visible="0" locked="1">
+   <object id="181" name="Balloon" type="balloon" x="624" y="48" width="48" height="48"/>
+   <object id="183" name="Balloon" type="balloon" x="864" y="144" width="48" height="48"/>
+   <object id="184" name="Balloon" type="balloon" x="1152" y="240" width="48" height="48"/>
+  </objectgroup>
+  <objectgroup id="7" name="Tiger" visible="0" locked="1">
+   <object id="187" name="Tiger" type="tiger" x="624" y="336" width="48" height="48"/>
+  </objectgroup>
+  <objectgroup id="8" name="Lantern" visible="0" locked="1">
+   <object id="188" name="Lantern" type="lantern" x="1104" y="336" width="48" height="48"/>
+  </objectgroup>
  <objectgroup id="9" name="Cloud" visible="0" locked="1">
   <object id="188" name="Cloud" type="cloud" x="336" y="480" width="48" height="48"/>
  </objectgroup>
