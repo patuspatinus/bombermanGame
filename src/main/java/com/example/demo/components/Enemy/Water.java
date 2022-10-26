@@ -30,6 +30,7 @@ public class Water extends Enemy {
         onCollision(WATER_E, FLAME, (water, flame) -> {
             if(flame.getComponent(FlameComponent.class).isActivation()) {
                 water.getComponent(Water.class).setStateDie();
+                inc("score", 4);
                 getGameTimer().runOnceAfter(() -> {
                     water.removeFromWorld();
                     set("enemies", getGameWorld().getGroup(BALLOOM_E,

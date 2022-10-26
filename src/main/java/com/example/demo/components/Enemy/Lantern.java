@@ -26,6 +26,7 @@ public class Lantern extends Enemy {
         onCollision(LANTERN_E, FLAME, (lantern, flame) -> {
             if(flame.getComponent(FlameComponent.class).isActivation()) {
                 lantern.getComponent(Lantern.class).setStateDie();
+                inc("score", 30);
                 getGameTimer().runOnceAfter(() -> {
                     lantern.removeFromWorld();
                     set("enemies", getGameWorld().getGroup(BALLOOM_E,

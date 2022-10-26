@@ -5,14 +5,11 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;
-import com.almasb.fxgl.pathfinding.CellState;
-import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.texture.AnimationChannel;
 import javafx.util.Duration;
 
 import static com.example.demo.BombermanConstant.TILED_SIZE;
 import static com.almasb.fxgl.dsl.FXGL.*;
-import static com.example.demo.constants.GameConst.SIZE_BLOCK;
 
 public class FlameComponent extends Component {
     private boolean activation;
@@ -30,14 +27,6 @@ public class FlameComponent extends Component {
         });
 
         onCollisionBegin(BombermanType.FLAME, BombermanType.BRICK, (flame, brick) -> {
-
-            int cellX = (int)((brick.getX() + 24) / SIZE_BLOCK);
-            int cellY = (int)((brick.getY() + 24) / SIZE_BLOCK);
-
-            AStarGrid grid = geto("grid");
-            grid.get(cellX, cellY).setState(CellState.WALKABLE);
-            set("grid", grid);
-
             Entity brickBreak = spawn("brick_break", new SpawnData(brick.getX(), brick.getY()));
             flame.removeFromWorld();
 
@@ -48,7 +37,7 @@ public class FlameComponent extends Component {
             getGameTimer().runOnceAfter(() -> {
                 brickBreak.removeFromWorld();
             }, Duration.seconds(0.4));
-            //inc("score", 10);
+            inc("score", 1);
         });
 
         animationFlame = new AnimationChannel(image(assetName), 3, TILED_SIZE, TILED_SIZE, Duration.seconds(0.4), 0, 2);

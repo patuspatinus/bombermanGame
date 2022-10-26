@@ -68,6 +68,16 @@ public class PlayerComponent extends Component {
             play("powerup.wav");
             inc("life", 1);
         });
+
+        onCollisionBegin(PLAYER, POWERUP_FLAMEPASS, (player, powerup) -> {
+            powerup.removeFromWorld();
+            play("powerup.wav");
+            getGameWorld().getSingleton(PLAYER)
+                    .getComponent(PlayerComponent.class)
+                    .setSkin(PlayerSkin.GOLD);
+        });
+
+        setSkin(PlayerSkin.NORMAL);
     }
 
     private void setSkin(PlayerSkin skin) {
@@ -85,6 +95,19 @@ public class PlayerComponent extends Component {
             animWalkUp = new AnimationChannel(image("player_up.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 2);
             animWalkLeft = new AnimationChannel(image("player_left.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 2);
 
+        }
+        else if (playerSkin == PlayerSkin.GOLD) {
+            animDie = new AnimationChannel(image("player_die.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(3.5), 0, 4);
+
+            animIdleDown = new AnimationChannel(image("gold_player_down.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
+            animIdleRight = new AnimationChannel(image("gold_player_right.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
+            animIdleUp = new AnimationChannel(image("gold_player_up.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
+            animIdleLeft = new AnimationChannel(image("gold_player_left.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 0);
+
+            animWalkDown = new AnimationChannel(image("gold_player_down.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 2);
+            animWalkRight = new AnimationChannel(image("gold_player_right.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 2);
+            animWalkUp = new AnimationChannel(image("gold_player_up.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 2);
+            animWalkLeft = new AnimationChannel(image("gold_player_left.png"), 3, FRAME_SIZE, FRAME_SIZE, Duration.seconds(0.5), 0, 2);
         }
     }
 
@@ -200,6 +223,13 @@ public class PlayerComponent extends Component {
         }, Duration.seconds(6));
     }
 
+    public void immortality() {
+
+        getGameTimer().runOnceAfter(() -> {
+
+        }, Duration.seconds(10));
+    }
+
     public void placeBomb(int flames) {
         if (state != State.DIE) {
             play("bomb_placed.wav");
@@ -227,6 +257,10 @@ public class PlayerComponent extends Component {
                 bombCounter--;
             }, Duration.seconds(2.1));
         }
+    }
+
+    public PlayerSkin getPlayerSkin() {
+        return playerSkin;
     }
 
     public void setBombInvalidation(boolean bombInvalidation) {

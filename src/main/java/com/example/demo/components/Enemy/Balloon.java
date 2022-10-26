@@ -23,6 +23,7 @@ public class Balloon extends Enemy {
         onCollision(BALLOOM_E, FLAME, (balloom, flame) -> {
             if(flame.getComponent(FlameComponent.class).isActivation()) {
                 balloom.getComponent(Balloon.class).setStateDie();
+                inc("score", 1);
                 getGameTimer().runOnceAfter(() -> {
                     balloom.removeFromWorld();
                     set("enemies", getGameWorld().getGroup(BALLOOM_E,

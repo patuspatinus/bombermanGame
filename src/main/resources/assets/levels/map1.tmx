@@ -36,6 +36,9 @@
   <object id="192" name="Items" type="powerup_life" x="720" y="48" width="48" height="48">
    <ellipse/>
   </object>
+  <object id="192" name="Items" type="powerup_flamepass" x="96" y="48" width="48" height="48">
+   <ellipse/>
+  </object>
  </objectgroup>
  <objectgroup id="4" name="Character" visible="0" locked="1">
   <object id="168" name="Character" type="player" x="48" y="48" width="48" height="48"/>

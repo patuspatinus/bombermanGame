@@ -8,9 +8,9 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.UserAction;
 import com.example.demo.Menu.GameMenu;
 import javafx.scene.input.KeyCode;
@@ -74,6 +74,15 @@ public class BombermanApp extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new BombermanFactory());
         setLevel();
+//        FXGL.setLevelFromMap("map1.tmx");
+//        FXGL.spawn("background");
+//
+//        Viewport viewport = getGameScene().getViewport();
+//        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+//        viewport.bindToEntity(getPlayer(), getAppWidth()/ 2, getAppHeight());
+//        viewport.setLazy(true);
+        //setLevel();
+
     }
 
     protected void setLevel() {
@@ -86,7 +95,6 @@ public class BombermanApp extends GameApplication {
         viewport.bindToEntity(getPlayer(), getAppWidth()/ 2, getAppHeight());
         viewport.setLazy(true);
 
-        setGridForAi();
     }
 
 
@@ -170,6 +178,7 @@ public class BombermanApp extends GameApplication {
             getPlayerComponent().setBombInvalidation(true);
             turnOffMusic();
             getGameTimer().runOnceAfter(() -> {
+                //turnOnMusic();
                 showMessage("You win !!!", () -> getGameController().gotoMainMenu());
             }, Duration.seconds(0.1));
             }
@@ -226,6 +235,8 @@ public class BombermanApp extends GameApplication {
         vars.put("life", 3);
         vars.put("speed", SPEED);
         vars.put("enemies", 8);
+        vars.put("score", 0);
+        vars.put("immortality", false);
     }
 
     public void onPlayerDied() {
@@ -236,17 +247,17 @@ public class BombermanApp extends GameApplication {
         getPlayerComponent().setBombInvalidation(true);
         inc("life", -1);
         getGameTimer().runOnceAfter(() -> {
-                getGameScene().getViewport().fade(() -> {
-                    if (geti("life") > 0) {
-                        getPlayerComponent().setBombInvalidation(false);
-                        setLevel();
-                    } else {
-                        turnOffMusic();
-                        showMessage("Game Over !!!", () -> getGameController().gotoMainMenu());
-                    }
-                });
-            }, Duration.seconds(2.2));
-        }
+            getGameScene().getViewport().fade(() -> {
+                if (geti("life") > 0) {
+                    getPlayerComponent().setBombInvalidation(false);
+                    setLevel();
+                } else {
+                    turnOffMusic();
+                    showMessage("Game Over !!!", () -> getGameController().gotoMainMenu());
+                }
+            });
+        }, Duration.seconds(2.2));
+    }
 
     @Override
     protected void initUI() {
@@ -255,10 +266,10 @@ public class BombermanApp extends GameApplication {
         UIComponents.addILabelUI("flame", "🔥 %d", 102, 18);
         UIComponents.addILabelUI("speed", "👟%d", 142, 18);
         UIComponents.addILabelUI("enemies", "👻 %d", 200, 18);
+        UIComponents.addILabelUI("score", "💰 %d", 240, 18);
     }
-
     private void setGridForAi() {
-                grid = AStarGrid.fromWorld(getGameWorld(), 31, 15,
+        grid = AStarGrid.fromWorld(getGameWorld(), 31, 15,
                 SIZE_BLOCK, SIZE_BLOCK, (type) -> {
                     if (type == BombermanType.BRICK
                             || type == BombermanType.WALL

@@ -25,6 +25,7 @@ public class FlameEnemy3Handler extends CollisionHandler {
         if (flame.getComponent(FlameComponent.class).isActivation()
                 && enemy.getComponent(Tiger.class).getState() != DIE) {
             enemy.getComponent(Tiger.class).setStateDie();
+            inc("score", 5);
             getGameTimer().runOnceAfter(() -> {
                 onTransform(enemy);
                 enemy.removeFromWorld();

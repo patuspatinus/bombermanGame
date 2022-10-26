@@ -36,11 +36,12 @@ public class Cloud extends Enemy {
         onCollision(CLOUD_E, FLAME, (cloud, flame) -> {
             if(flame.getComponent(FlameComponent.class).isActivation()) {
                 cloud.getComponent(Cloud.class).setStateDie();
+                inc("score", 5);
                 getGameTimer().runOnceAfter(() -> {
                     cloud.removeFromWorld();
                     set("enemies", getGameWorld().getGroup(BALLOOM_E,
                             WATER_E, TIGER_E, LANTERN_E, CLOUD_E).getSize());
-                }, Duration.seconds(2.4));
+                }, Duration.seconds(2.4));//2.4
             }
         });
 
