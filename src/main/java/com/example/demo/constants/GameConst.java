@@ -15,4 +15,5 @@ public class GameConst {
     public static final int ENEMY_SPEED = 70;
     public static final int SCORE_ITEM = 20;
     public static final int MAX_LEVEL = 3;
+    public static final Double UI_FONT_SIZE = 18.0;
 }

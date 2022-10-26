@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.UI.UIComponents;
 import com.example.demo.components.Enemy.*;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.example.demo.BombermanType.*;
 import static com.example.demo.constants.GameConst.*;
 import static com.example.demo.Sounds.SoundEffect.*;
 
@@ -70,15 +72,25 @@ public class BombermanApp extends GameApplication {
         viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
         viewport.bindToEntity(getPlayer(), getAppWidth()/ 2, getAppHeight());
         viewport.setLazy(true);
+        //setLevel();
+
     }
 
-    @Override
-    protected void initGameVars(Map<String, Object> vars) {
-        vars.put("flame", 1);
-        vars.put("bomb", 1);
-        vars.put("life", 3);
-        vars.put("speed", SPEED);
-    }
+//    protected void setLevel() {
+//        Viewport viewport = getGameScene().getViewport();
+//        viewport.setBounds(0, 0, GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+//        viewport.bindToEntity(getPlayer(), getAppWidth()/ 2, getAppHeight());
+//        viewport.setLazy(true);
+//
+//        set("score", temp.get("score"));
+//        set("flame", temp.get("flame"));
+//        set("bomb", temp.get("bomb"));
+//        //set("levelTime", TIME_LEVEL);
+//        //set("enemies", getGameWorld().getGroup(BALLOOM_E,
+//        //WATER_E,TIGER_E, LANTERN_E, CLOUD_E).getSize());
+//    }
+
+
 
     private Entity getPlayer() {
         return getGameWorld().getSingleton(BombermanType.PLAYER);
@@ -210,20 +222,44 @@ public class BombermanApp extends GameApplication {
         loopBGM("theme.mp3");
     }
 
+    @Override
+    protected void initGameVars(Map<String, Object> vars) {
+        vars.put("flame", 1);
+        vars.put("bomb", 1);
+        vars.put("life", 3);
+        vars.put("speed", SPEED);
+        vars.put("enemies", 8);
+    }
+
     public void onPlayerDied() {
         turnOffMusic();
         play("player_die.wav");
         isLoading = true;
         getPlayerComponent().setState(State.DIE);
         getPlayerComponent().setBombInvalidation(true);
-        getGameTimer().runOnceAfter(() -> {
-            getGameScene().getViewport().fade(() -> {
+        //inc("life", -1);
+        if (geti("life") > 0) {
+            getPlayerComponent().setState(State.STOP);
+            getPlayerComponent().setBombInvalidation(false);
+        } else {
+            getGameTimer().runOnceAfter(() -> {
+                getGameScene().getViewport().fade(() -> {
                     turnOffMusic();
                     showMessage("Game Over !!!", () -> getGameController().gotoMainMenu());
-            });
-        }, Duration.seconds(2.2));
+                });
+            }, Duration.seconds(2.2));
+        }
     }
-    
+
+    @Override
+    protected void initUI() {
+        UIComponents.addILabelUI("life", "💜 %d", 6,18 );
+        UIComponents.addILabelUI("bomb", "💣 %d", 54, 18);
+        UIComponents.addILabelUI("flame", "🔥 %d", 102, 18);
+        UIComponents.addILabelUI("speed", "👟%d", 142, 18);
+        UIComponents.addILabelUI("enemies", "👻 %d", 200, 18);
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

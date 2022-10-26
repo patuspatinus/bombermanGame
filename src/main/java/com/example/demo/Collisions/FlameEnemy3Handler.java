@@ -37,7 +37,7 @@ public class FlameEnemy3Handler extends CollisionHandler {
     private void onTransform(Entity parent) {
         Entity child1 = spawn("balloon", new SpawnData(parent.getX(), parent.getY()));
         Entity child2 = spawn("balloon", new SpawnData(parent.getX(), parent.getY()));
-
+        inc("enemies", 2);
         if (parent.getComponent(Tiger.class).getDx() == 0) {
             child1.getComponent(Balloon.class).setState(UP);
             child1.getComponent(Balloon.class).setDxDy(0, -ENEMY_SPEED);

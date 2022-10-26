@@ -63,6 +63,11 @@ public class PlayerComponent extends Component {
             play("powerup.wav");
             handlePowerUpSpeed();
         });
+        onCollisionBegin(PLAYER, LIFE_ITEM, (player, powerup) -> {
+            powerup.removeFromWorld();
+            play("powerup.wav");
+            inc("life", 1);
+        });
     }
 
     private void setSkin(PlayerSkin skin) {
