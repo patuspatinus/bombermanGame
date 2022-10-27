@@ -3,9 +3,6 @@ package com.example.demo.Menu;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import javafx.geometry.Pos;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -15,9 +12,6 @@ import javafx.scene.shape.Shape;
 
 import static com.example.demo.constants.GameConst.SCREEN_HEIGHT;
 import static com.example.demo.constants.GameConst.SCREEN_WIDTH;
-//import static Bomberman.Sounds.SoundEffect.setSoundSwitch;
-import static com.almasb.fxgl.dsl.FXGL.*;
-import static com.almasb.fxgl.dsl.FXGL.centerTextBind;
 
 public class GameMenu extends FXGLMenu {
     public GameMenu() {
@@ -31,7 +25,6 @@ public class GameMenu extends FXGLMenu {
 
         var menuBox = new VBox(
                 new MenuButton("Resume", 20, () -> fireResume()),
-                //new MenuButton("Sound", 20, () -> setSoundSwitch()),
                 new MenuButton("Menu", 20, () -> fireExitToMainMenu()),
                 new MenuButton("Exit", 20, () -> fireExit())
         );

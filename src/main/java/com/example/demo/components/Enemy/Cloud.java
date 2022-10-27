@@ -15,38 +15,6 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 public class Cloud extends Enemy {
     private boolean isCatching;
 
-    public Cloud() {
-        super(-ENEMY_SPEED, 0, 1, 4, "enemy5.png");
-        isCatching = true;
-
-        onCollisionBegin(CLOUD_E, BRICK, (cloud, brick) -> {
-            if (speedFactor == 1) {
-                cloud.getComponent(Cloud.class).turn();
-            }
-        });
-        onCollisionBegin(CLOUD_E, WALL, (cloud, wall) -> {
-            cloud.getComponent(Cloud.class).turn();
-        });
-        onCollisionBegin(CLOUD_E, DOOR, (cloud, door) -> {
-            cloud.getComponent(Cloud.class).turn();
-        });
-        onCollisionBegin(CLOUD_E, BOMB, (cloud, bomb) -> {
-            cloud.getComponent(Cloud.class).turn();
-        });
-        onCollision(CLOUD_E, FLAME, (cloud, flame) -> {
-            if(flame.getComponent(FlameComponent.class).isActivation()) {
-                cloud.getComponent(Cloud.class).setStateDie();
-                inc("score", 5);
-                getGameTimer().runOnceAfter(() -> {
-                    cloud.removeFromWorld();
-                    set("enemies", getGameWorld().getGroup(BALLOOM_E,
-                            WATER_E, TIGER_E, LANTERN_E, CLOUD_E).getSize());
-                }, Duration.seconds(2.4));//2.4
-            }
-        });
-
-    }
-
     @Override
     public void onUpdate(double tpf) {
         super.onUpdate(tpf);
@@ -103,6 +71,38 @@ public class Cloud extends Enemy {
             speedFactor = 1;
             isCatching = true;
         }
+
+    }
+
+    public Cloud() {
+        super(-ENEMY_SPEED, 0, 1, 4, "enemy5.png");
+        isCatching = true;
+
+        onCollisionBegin(CLOUD_E, BRICK, (cloud, brick) -> {
+            if (speedFactor == 1) {
+                cloud.getComponent(Cloud.class).turn();
+            }
+        });
+        onCollisionBegin(CLOUD_E, WALL, (cloud, wall) -> {
+            cloud.getComponent(Cloud.class).turn();
+        });
+        onCollisionBegin(CLOUD_E, DOOR, (cloud, door) -> {
+            cloud.getComponent(Cloud.class).turn();
+        });
+        onCollisionBegin(CLOUD_E, BOMB, (cloud, bomb) -> {
+            cloud.getComponent(Cloud.class).turn();
+        });
+        onCollision(CLOUD_E, FLAME, (cloud, flame) -> {
+            if(flame.getComponent(FlameComponent.class).isActivation()) {
+                cloud.getComponent(Cloud.class).setStateDie();
+                inc("score", 5);
+                getGameTimer().runOnceAfter(() -> {
+                    cloud.removeFromWorld();
+                    set("enemies", getGameWorld().getGroup(BALLOOM_E,
+                            WATER_E, TIGER_E, LANTERN_E, CLOUD_E).getSize());
+                }, Duration.seconds(2.4));//2.4
+            }
+        });
 
     }
 

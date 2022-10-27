@@ -8,7 +8,7 @@ import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 import javafx.util.Duration;
 
-import static com.example.demo.BombermanConstant.TILED_SIZE;
+import static com.example.demo.constants.GameConst.TILED_SIZE;
 import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class FlameComponent extends Component {

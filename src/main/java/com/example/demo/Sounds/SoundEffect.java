@@ -17,32 +17,4 @@ public class SoundEffect {
             isMusicEnabled = false;
         }
     }
-
-    public static void turnOnMusic() {
-        if (!isSoundEnabled) {
-            return;
-        }
-        if (!isMusicEnabled) {
-            getSettings().setGlobalMusicVolume(MAX_VOLUME);
-            isMusicEnabled = true;
-        }
-    }
-
-    public static void mute() {
-        if (isSoundEnabled) {
-            getSettings().setGlobalSoundVolume(0.0);
-            getSettings().setGlobalMusicVolume(0.0);
-            isSoundEnabled = false;
-            isMusicEnabled = false;
-        }
-    }
-
-    public static void unmute() {
-        if (!isSoundEnabled) {
-            getSettings().setGlobalSoundVolume(MAX_VOLUME);
-            getSettings().setGlobalMusicVolume(MAX_VOLUME);
-            isSoundEnabled = true;
-            isMusicEnabled = true;
-        }
-    }
 }

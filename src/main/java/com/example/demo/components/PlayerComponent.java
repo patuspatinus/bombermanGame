@@ -1,7 +1,6 @@
 package com.example.demo.components;
 
 import com.almasb.fxgl.core.math.FXGLMath;
-import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
@@ -11,7 +10,7 @@ import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 import com.example.demo.DynamicEntityState.State;
 
-import static com.example.demo.BombermanConstant.TILED_SIZE;
+import static com.example.demo.constants.GameConst.TILED_SIZE;
 import static com.example.demo.BombermanType.*;
 
 
@@ -72,9 +71,12 @@ public class PlayerComponent extends Component {
         onCollisionBegin(PLAYER, POWERUP_FLAMEPASS, (player, powerup) -> {
             powerup.removeFromWorld();
             play("powerup.wav");
-            getGameWorld().getSingleton(PLAYER)
-                    .getComponent(PlayerComponent.class)
-                    .setSkin(PlayerSkin.GOLD);
+            set("immortality", true);
+            setSkin(PlayerSkin.GOLD);
+            getGameTimer().runOnceAfter(() -> {
+                setSkin(PlayerSkin.NORMAL);
+                set("immortality", false);
+            }, Duration.seconds(15));
         });
 
         setSkin(PlayerSkin.NORMAL);
@@ -216,18 +218,10 @@ public class PlayerComponent extends Component {
     }
 
     public void handlePowerUpSpeed() {
-        //play("powerup.wav");
         inc("speed", 50);
         getGameTimer().runOnceAfter(() -> {
             inc("speed", -50);
         }, Duration.seconds(6));
-    }
-
-    public void immortality() {
-
-        getGameTimer().runOnceAfter(() -> {
-
-        }, Duration.seconds(10));
     }
 
     public void placeBomb(int flames) {
@@ -257,10 +251,6 @@ public class PlayerComponent extends Component {
                 bombCounter--;
             }, Duration.seconds(2.1));
         }
-    }
-
-    public PlayerSkin getPlayerSkin() {
-        return playerSkin;
     }
 
     public void setBombInvalidation(boolean bombInvalidation) {

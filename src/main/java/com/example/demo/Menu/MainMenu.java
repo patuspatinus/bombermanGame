@@ -5,15 +5,12 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.input.view.KeyView;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-//import static Bomberman.Sounds.SoundEffect.setSoundSwitch;
-//import static Bomberman.Sounds.SoundEffect.turnOffMusic;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static javafx.scene.input.KeyCode.*;
 
@@ -61,7 +58,6 @@ public class MainMenu extends FXGLMenu {
     public void newGame() {
         fireNewGame();
         getGameTimer().runOnceAfter(() -> {
-            //turnOffMusic();
             action.run();
 
         }, Duration.millis(10));

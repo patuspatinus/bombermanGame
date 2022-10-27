@@ -23,7 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
-import static com.example.demo.BombermanConstant.TILED_SIZE;
+import static com.example.demo.constants.GameConst.TILED_SIZE;
 import static com.example.demo.constants.GameConst.*;
 
 public class BombermanFactory implements EntityFactory {
@@ -333,7 +333,6 @@ public class BombermanFactory implements EntityFactory {
                 .type(BombermanType.DOOR)
                 .view("portal.png")
                 .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
-                //.with(new PhysicsComponent())
                 .with(new CollidableComponent(true))
                 .zIndex(-1)
                 .build();
