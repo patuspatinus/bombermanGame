@@ -8,8 +8,6 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.pathfinding.CellState;
-import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.UserAction;
 import com.example.demo.Menu.GameMenu;
@@ -19,7 +17,6 @@ import com.example.demo.constants.GameConst;
 import com.example.demo.DynamicEntityState.State;
 import javafx.util.Duration;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -28,17 +25,7 @@ import static com.example.demo.Sounds.SoundEffect.*;
 
 public class BombermanApp extends GameApplication {
 
-    private AStarGrid grid;
-    private Map temp = new HashMap();
     private boolean isLoading = false;
-
-    public Map getTemp() {
-        return temp;
-    }
-
-    public AStarGrid getGrid() {
-        return grid;
-    }
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -91,19 +78,6 @@ public class BombermanApp extends GameApplication {
 
     @Override
     protected void initInput() {
-        getInput().addAction(new UserAction("Move Up") {
-            @Override
-            protected void onAction() {
-                getPlayerComponent().up();
-            }
-
-            @Override
-            protected void onActionEnd() {
-                getPlayerComponent().stop();
-            }
-        }, KeyCode.W);
-
-
         getInput().addAction(new UserAction("Move Down") {
             @Override
             protected void onAction() {
@@ -116,17 +90,17 @@ public class BombermanApp extends GameApplication {
             }
         }, KeyCode.S);
 
-        getInput().addAction(new UserAction("Move Left") {
+        getInput().addAction(new UserAction("Move Up") {
             @Override
             protected void onAction() {
-                getPlayerComponent().left();
+                getPlayerComponent().up();
             }
 
             @Override
             protected void onActionEnd() {
                 getPlayerComponent().stop();
             }
-        }, KeyCode.A);
+        }, KeyCode.W);
 
         getInput().addAction(new UserAction("Move Right") {
             @Override
@@ -140,6 +114,19 @@ public class BombermanApp extends GameApplication {
             }
         }, KeyCode.D);
 
+
+        getInput().addAction(new UserAction("Move Left") {
+            @Override
+            protected void onAction() {
+                getPlayerComponent().left();
+            }
+
+            @Override
+            protected void onActionEnd() {
+                getPlayerComponent().stop();
+            }
+        }, KeyCode.A);
+
         getInput().addAction(new UserAction("Place Bomb") {
             @Override
             protected void onActionBegin() {
@@ -151,7 +138,6 @@ public class BombermanApp extends GameApplication {
 
     @Override
     protected void initPhysics() {
-
 
          onCollisionBegin(BombermanType.PLAYER, BombermanType.DOOR, (player, door) -> {
             if (isLoading == false && getGameWorld().getGroup(BombermanType.BALLOOM_E, BombermanType.WATER_E,
@@ -169,38 +155,38 @@ public class BombermanApp extends GameApplication {
         onCollisionBegin(BombermanType.PLAYER, BombermanType.BALLOOM_E, (player, enemy) -> {
             if (enemy.getComponent(Balloon.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
-                onPlayerDied();
+                playerDied();
             }
         });
         onCollisionBegin(BombermanType.PLAYER, BombermanType.WATER_E, (player, enemy) -> {
             if (enemy.getComponent(Water.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
-                onPlayerDied();
+                playerDied();
             }
         });
 
          onCollisionBegin(BombermanType.PLAYER, BombermanType.CLOUD_E, (player, enemy) -> {
             if (enemy.getComponent(Cloud.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
-                onPlayerDied();
+                playerDied();
             }
          });
          onCollisionBegin(BombermanType.PLAYER, BombermanType.LANTERN_E, (player, enemy) -> {
              if (enemy.getComponent(Lantern.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
-                onPlayerDied();
+                playerDied();
          }
          });
          onCollisionBegin(BombermanType.PLAYER, BombermanType.TIGER_E, (player, enemy) -> {
             if (enemy.getComponent(Tiger.class).getState() != State.DIE
                     && getPlayerComponent().getState() != State.DIE) {
-                onPlayerDied();
+                playerDied();
          }
          });
 
         onCollisionBegin(BombermanType.PLAYER, BombermanType.FLAME, (player, flame) -> {
             if (getPlayerComponent().getState() != State.DIE) {
-                onPlayerDied();
+                playerDied();
             }
         });
     }
@@ -212,16 +198,16 @@ public class BombermanApp extends GameApplication {
 
     @Override
     protected void initGameVars(Map<String, Object> vars) {
+        vars.put("immortality", false);
         vars.put("flame", 1);
         vars.put("bomb", 1);
         vars.put("life", 3);
         vars.put("speed", SPEED);
         vars.put("enemies", 8);
         vars.put("score", 0);
-        vars.put("immortality", false);
     }
 
-    public void onPlayerDied() {
+    public void playerDied() {
         if (!getb("immortality")) {
             play("player_die.wav");
             isLoading = true;
@@ -251,29 +237,7 @@ public class BombermanApp extends GameApplication {
         UIComponents.addILabelUI("enemies", "👻 %d", 200, 18);
         UIComponents.addILabelUI("score", "💰 %d", 240, 18);
     }
-    private void setGridForAi() {
-        AStarGrid _grid = AStarGrid.fromWorld(getGameWorld(), 31, 15,
-                SIZE_BLOCK, SIZE_BLOCK, (type) -> {
-                    if (type == BombermanType.AROUND_WALL || type == BombermanType.WALL) {
-                        return CellState.NOT_WALKABLE;
-                    } else {
-                        return CellState.WALKABLE;
-                    }
-                });
 
-        grid = AStarGrid.fromWorld(getGameWorld(), 31, 15,
-                SIZE_BLOCK, SIZE_BLOCK, (type) -> {
-                    if (type == BombermanType.BRICK
-                            || type == BombermanType.WALL) {
-                        return CellState.NOT_WALKABLE;
-                    } else {
-                        return CellState.WALKABLE;
-                    }
-                });
-
-        set("grid", grid);
-        set("_grid", _grid);
-    }
     public static void main(String[] args) {
         launch(args);
     }
